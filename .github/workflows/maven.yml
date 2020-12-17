@@ -22,6 +22,8 @@ jobs:
         java-version: 1.8
     - name: Check cwd
       run: pwd
+    - name: Check files
+      run: ls
     - name: checnk maven
       run: mvn --version
     #- name: Build with Maven
