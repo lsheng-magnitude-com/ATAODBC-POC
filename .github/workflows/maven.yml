@@ -26,5 +26,7 @@ jobs:
       run: ls
     - name: checnk maven
       run: mvn --version
-    #- name: Build with Maven
-    #  run: mvn -B package --file pom.xml
+    - name: Build with Maven
+      run: mvn -B package --file ./test-app/pom.xml
+    - name: Run test app
+      run: java -cp test-app/target/test-app-1.0-SNAPSHOT.jar com.ata.app.App
