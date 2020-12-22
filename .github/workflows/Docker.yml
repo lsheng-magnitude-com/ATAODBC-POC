@@ -24,3 +24,5 @@ jobs:
         run: docker -v
       - name: pull docker image
         run: docker pull centos:latest
+      - name: start container
+        run: docker run -it centos:latest /bin/bash
