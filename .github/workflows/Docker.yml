@@ -22,3 +22,5 @@ jobs:
       # test
       - name: Run docker
         run: docker -v
+      - name: pull docker image
+        run: docker pull centos:latest
