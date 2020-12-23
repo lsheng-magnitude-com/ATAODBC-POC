@@ -22,9 +22,11 @@ jobs:
       # test
       - name: Run docker
         run: docker -v
-      - name: pull docker image
+      - name: Pull docker image
         run: docker pull centos:latest
-      - name: start container
+      - name: Start container
         run: docker run --detach --name build_env --net=host centos:latest tail -f /dev/null
-      - name: check container
+      - name: Check container
         run: docker ps
+      - name: Run command
+        run: docker exec build_env ls
