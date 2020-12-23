@@ -26,3 +26,5 @@ jobs:
         run: docker pull centos:latest
       - name: start container
         run: docker run --detach --name build_env --net=host centos:latest tail -f /dev/null
+      - name: check container
+        run: docker ps
