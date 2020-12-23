@@ -29,4 +29,4 @@ jobs:
       - name: Check container
         run: docker ps
       - name: Run command
-        run: docker exec build_env ls
+        run: docker exec build_env 'cat /etc/os-release'
