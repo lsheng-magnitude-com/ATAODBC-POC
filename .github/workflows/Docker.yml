@@ -25,4 +25,4 @@ jobs:
       - name: pull docker image
         run: docker pull centos:latest
       - name: start container
-        run: docker run -it centos:latest /bin/bash
+        run: docker run --detach --name build_env --net=host centos:latest tail -f /dev/null
