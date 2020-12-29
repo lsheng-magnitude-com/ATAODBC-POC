@@ -12,7 +12,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -20,13 +20,17 @@ jobs:
       - uses: actions/checkout@v2
 
       # test
-      - name: Run docker
-        run: docker -v
-      - name: Pull docker image
-        run: docker pull centos:latest
-      - name: Start container
-        run: docker run --detach --name build_env --net=host centos:latest tail -f /dev/null
-      - name: Check container
-        run: docker ps
-      - name: Run command
-        run: docker exec build_env bash -c "cat /etc/os-release"
+      - name: check python
+        run: python --version
+      #- name: bootstrap
+      #  run: 
+      #- name: Run docker
+      #  run: docker -v
+      #- name: Pull docker image
+      #  run: docker pull centos:latest
+      #- name: Start container
+      #  run: docker run --detach --name build_env --net=host centos:latest tail -f /dev/null
+      #- name: Check container
+      #  run: docker ps
+      #- name: Run command
+      #  run: docker exec build_env bash -c "cat /etc/os-release"
