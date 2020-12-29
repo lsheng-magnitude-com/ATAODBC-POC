@@ -20,6 +20,7 @@ def main():
     runCommand('docker run --detach --name build_env --net=host centos:latest tail -f /dev/null')
     runCommand('docker ps')
     runCommand('docker exec build_env bash -c "cat /etc/os-release"')
+    runCommand('docker exec build_env bash -c "ls"')
 
 
 if __name__ == "__main__":
