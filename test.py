@@ -21,6 +21,7 @@ def main():
     runCommand('docker ps')
     runCommand('docker exec build_env bash -c "cat /etc/os-release"')
     runCommand('docker exec build_env bash -c "ls"')
+    runCommand('docker exec build_env bash -c "ls /home/"')
 
 
 if __name__ == "__main__":
