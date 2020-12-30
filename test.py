@@ -26,8 +26,15 @@ def main():
     runCommand('docker run --volume /home:/home --detach --name build_env --net=host centos:latest tail -f /dev/null')
     runCommand('docker ps')
     runCommandinDocker('cat /etc/os-release')
-    runCommandinDocker('ls')
-    runCommandinDocker('ls /home/')
+    runCommandinDocker('yum install gcc openssl-devel bzip2-devel -y')
+    runCommandinDocker('yum install wget -y')
+    runCommandinDocker('wget https://www.python.org/ftp/python/2.7.18/Python-2.7.18.tgz')
+    runCommandinDocker('tar xzf Python-2.7.18.tgz')
+    runCommandinDocker('cd ./Python-2.7.18 && ./configure --enable-optimizations')
+    runCommandinDocker('cd ./Python-2.7.18 && make altinstall')
+    runCommandinDocker('curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py')
+    runCommandinDocker('python2.7 get-pip.py')
+
 
 
 if __name__ == "__main__":
