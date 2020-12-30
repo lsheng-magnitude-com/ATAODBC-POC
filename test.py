@@ -28,6 +28,7 @@ def main():
     runCommandinDocker('cat /etc/os-release')
     runCommandinDocker('yum install gcc openssl-devel bzip2-devel -y')
     runCommandinDocker('yum install wget -y')
+    runCommandinDocker('yum install make -y')
     runCommandinDocker('wget https://www.python.org/ftp/python/2.7.18/Python-2.7.18.tgz')
     runCommandinDocker('tar xzf Python-2.7.18.tgz')
     runCommandinDocker('cd ./Python-2.7.18 && ./configure --enable-optimizations')
