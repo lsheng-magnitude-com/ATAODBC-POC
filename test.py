@@ -14,14 +14,20 @@ def runCommand(cmd):
         exit(-1)
 
 
+def runCommandinDocker(cmd):
+    cmd = 'docker exec build_env bash -c ' + '"' + cmd + '"'
+    print (cmd)
+    runCommand(cmd)
+
+
 def main():
     runCommand('docker -v')
     runCommand('docker pull centos:latest')
     runCommand('docker run --volume /home:/home --detach --name build_env --net=host centos:latest tail -f /dev/null')
-    runCommand('docker ps')
-    runCommand('docker exec build_env bash -c "cat /etc/os-release"')
-    runCommand('docker exec build_env bash -c "ls"')
-    runCommand('docker exec build_env bash -c "ls /home/"')
+    runCommandinDocker('docker ps')
+    runCommandinDocker('cat /etc/os-release')
+    runCommandinDocker('ls')
+    runCommandinDocker('ls /home/')
 
 
 if __name__ == "__main__":
