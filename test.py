@@ -17,7 +17,7 @@ def runCommand(cmd):
 def main():
     runCommand('docker -v')
     runCommand('docker pull centos:latest')
-    runCommand('docker run --detach --name build_env --net=host centos:latest tail -f /dev/null')
+    runCommand('docker run --volume /home:/home --detach --name build_env --net=host centos:latest tail -f /dev/null')
     runCommand('docker ps')
     runCommand('docker exec build_env bash -c "cat /etc/os-release"')
     runCommand('docker exec build_env bash -c "ls"')
