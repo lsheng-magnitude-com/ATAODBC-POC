@@ -1,0 +1,235 @@
+import fileinput
+import os
+from Booster.XMLFile import XMLFile, getFileName
+from Booster.XMLFile import dumpXMLNode
+from BoosterError import FileNotFoundError, BoosterError
+import Copy
+import Remove
+import glob
+import Tar
+import Zip
+
+import ata.log
+
+logger = ata.log.AtaLog(__name__)
+
+
+def _doExecute(root, isDebug):
+    print '=============================='
+    print '      Enter Package'
+    print '=============================='
+
+    basedir = getBaseDir(root)
+    #print basedir
+    brandingFile = getBrandingFile(root)
+    #print brandingFile
+    packageFiles = getPackageFile(root)
+    brandingSettings = loadBrandingFile(brandingFile)
+    packagetype=brandingSettings['PACKAGETYPE']
+    bitness=brandingSettings['BITNESS']
+    brand=brandingSettings['DRV_BRAND']
+
+    #print brandingSettings
+    for element in packageFiles:
+        packageFile=element.text
+        (filedict, archivedict) = createPackageStructure(packageFile, basedir, packagetype, bitness, brand)
+        for key in filedict:
+            if filedict[key] == 'None':
+                logger.error('Can not find ' + key)
+
+
+def Execute(root):
+    _doExecute(root, False)
+
+
+def Debug(root):
+    _doExecute(root, True)
+
+
+def getBaseDir(root):
+    return root.attrib.get('basedir', os.getcwd())
+
+
+def getBrandingFile(root):
+    brandingFile = root.attrib.get('brand', 'undef')
+    if brandingFile == 'undef':
+        logger.error('Can not find branding file')
+        raise error
+    return brandingFile
+
+
+def getPackageFile(root):
+    packageFiles = list(root)
+    return packageFiles
+
+
+def getbitness(node, packagetype, bitness):
+    if packagetype == 'OEM':
+        parentdir = node.attrib.get('name')
+        if '32_' in parentdir or '32-' in parentdir:
+            return '32'
+        elif '64_' in parentdir or '64-' in parentdir:
+            return '64'
+        else: return '3264'
+    else:
+        return bitness
+
+
+def loadBrandingFile(file):
+    logger.info('load ' + file)
+    brandingSettings = {}
+    #product = os.environ['BOOSTER_VAR_PRODUCT']
+    brand = os.environ['BOOSTER_VAR_DRV_BRAND']
+    #logger.info('Set branding info for ' + brand)
+    #brandingSettings['PRODUCT'] = product
+    #brandingSettings['PRODUCT_LOWER'] = product.lower()
+    #brandingSettings['PRODUCT_UPPER'] = product.upper()
+    brandingSettings['DRV_BRAND'] = brand
+    #brandingSettings['DRV_BRAND_LOWER'] = brand.lower()
+    #brandingSettings['DRV_BRAND_UPPER'] = brand.upper()
+    brandingSettings['BITNESS'] = os.environ['BOOSTER_VAR_BITNESS']
+    brandingSettings['PACKAGETYPE'] = os.environ['BOOSTER_VAR_PACKAGETYPE']
+    if os.path.exists(file):
+        f = fileinput.FileInput(file)
+        for line in f:
+            if ('=' in line):
+                settingArray = line.split('=', 1)
+                brandingSettings[settingArray[0]] = settingArray[1].rstrip()
+                brandingSettings[settingArray[0] + '_LOWER'] = settingArray[1].rstrip().lower()
+                brandingSettings[settingArray[0] + '_UPPER'] = settingArray[1].rstrip().upper()
+            else:
+                continue
+        f.close()
+        # for key in brandingSettings.keys():
+        #     print key + ':' + brandingSettings[key]
+    else:
+        logger.info('branding config file does not exist')
+    return brandingSettings
+
+
+def createPackageStructure(packageFile, basedir, packagetype, bitness, brand):
+    xml = XMLFile(packageFile)
+    root = xml.root()
+    logger.info('=== Building ' + root.attrib['name'] + ' ===')
+    archive = root.attrib['name']
+    archiveSource = basedir + '/' + root.find('directory').attrib.get('name')
+    root.attrib['name'] = basedir
+    sourcedir = os.path.normpath(basedir + '/PackageResources' + bitness)
+    filedict={}
+    archivedict={archive:archiveSource}
+    (filelist, archivedict) = createSubDirectory(root, filedict, archivedict, packagetype, bitness, sourcedir, brand)
+    if packagetype == 'OEM':
+        logger.info('==create ' + os.path.join(basedir, archive) + ' from ' + archiveSource + '==')
+        if os.path.splitext(archive)[1] == '.zip':
+            Zip.createZip(os.path.join(basedir, os.path.splitext(archive)[0]), archiveSource)
+        else:
+            Tar.createTar(os.path.join(basedir, os.path.splitext(archive)[0]), archiveSource)
+    return (filedict,archivedict)
+
+
+def createSubDirectory(node, filedict, archivedict, packagetype, bitness, sourcedir, brand):
+    for child in list(node):
+        if child.tag == 'directory':
+            # lib diresctory is a special case
+            if child.attrib['name'] == 'lib':
+                bitness = getbitness(node, packagetype, bitness)
+                sourcedir = os.path.normpath(sourcedir + '/..' + '/PackageResources' + bitness)
+                child.attrib['name'] = node.attrib.get('name') + '/' + child.attrib.get('name')
+                createLibDirtecory(child, filedict, archivedict, packagetype, bitness, sourcedir, brand)
+            else:
+                child.attrib['name'] = node.attrib.get('name') + '/' + child.attrib.get('name')
+                createSubDirectory(child, filedict, archivedict, packagetype, bitness, sourcedir, brand)
+        if child.tag == 'file':
+            destdir = node.attrib.get('name')
+            file = child.attrib['name']
+            filedict[file] = 'None'
+            filesource=copyFiletoPackage(sourcedir, destdir, file, brand)
+            filedict[file] = filesource
+        if child.tag == 'archive':
+            destdir = node.attrib.get('name')
+            archiveName= child.attrib['name']
+            # if the archive is a pre-built archive, copy it, otherwise, create the folder
+            filesource = copyFiletoPackage(sourcedir, destdir, archiveName, brand)
+            if filesource == 'None':
+                archiveSource = node.attrib.get('name') + '/' + child.find('directory').attrib['name']
+                child.attrib['name'] = node.attrib.get('name')
+                archivedict[archiveName] = archiveSource
+                createSubDirectory(child, filedict, archivedict, packagetype, bitness, sourcedir, brand)
+                logger.info('==create ' + os.path.join(destdir, archiveName) + ' from ' + archiveSource + '==')
+                if os.path.splitext(archiveName)[1] == '.zip':
+                    Zip.createZip(os.path.join(destdir, os.path.splitext(archiveName)[0]), archiveSource)
+                else:
+                    Tar.createTar(os.path.join(destdir, os.path.splitext(archiveName)[0]), archiveSource)
+                Remove.removeGlobFiles(archiveSource, 'None')
+            else:
+                filedict[archiveName] = filesource
+    return (filedict,archivedict)
+
+
+def createLibDirtecory(node, filedict, archivedict, packagetype, bitness, sourcedir, brand):
+    for child in list(node):
+        if child.tag == 'directory':
+            subdir = child.attrib['name']
+            child.attrib['name'] = node.attrib.get('name') + '/' + child.attrib.get('name')
+            # if the sub dir is the bitness directory for linux and unix installers
+            if subdir == '32' or subdir == '64' or subdir== '3264' or subdir =='universal':
+                createLibDirtecory(child, filedict, archivedict, packagetype, bitness, sourcedir, brand)
+            else:
+                createLibSubDirtecory(child, filedict, archivedict, packagetype, bitness, sourcedir, subdir, brand)
+        if child.tag == 'file':
+            file = child.attrib['name']
+            destdir = node.attrib.get('name')
+            child.attrib['name'] = node.attrib.get('name') + '/' + child.attrib.get('name')
+            filesource=copyFiletoLibDir(sourcedir, destdir, file, brand)
+            filedict[child.attrib.get('name')] = filesource
+
+
+def createLibSubDirtecory(node, filedict, archivedict, packagetype, bitness, sourcedir, subdir, brand):
+    source = os.path.join(sourcedir, 'lib', subdir)
+    # try to find the same sub directory under lib dir from source folder first
+    if os.path.exists(source):
+        createSubDirectory(node, filedict, archivedict, packagetype, bitness, source, brand)
+    else:
+        createSubDirectory(node, filedict, archivedict, packagetype, bitness, sourcedir, brand)
+
+
+def copyFiletoPackage(sourcedir, destdir, file, brand):
+    custimizedBrandingDir = os.path.join(sourcedir, 'Branding', brand)
+    commonBrandingDir= os.path.join(sourcedir, 'Branding', 'Common')
+    #search customized brandind directory
+    logger.info('search ' + file + ' in ' + custimizedBrandingDir)
+    for root, dirs, files in os.walk(custimizedBrandingDir):
+        for name in files:
+            if name == file:
+                logger.info('copy ' + os.path.join(root, name) +  ' to ' + destdir)
+                Copy.copyGlobFiles(os.path.join(root, name), destdir)
+                return  os.path.join(root, name)
+    #search common brading directory
+    logger.info('search ' + file + ' in ' + commonBrandingDir)
+    for root, dirs, files in os.walk(commonBrandingDir):
+        for name in files:
+            if name == file:
+                logger.info('copy ' + os.path.join(root, name) + ' to ' + destdir)
+                Copy.copyGlobFiles(os.path.join(root, name), destdir)
+                return os.path.join(root, name)
+    #search other directories
+    logger.info('search ' + file + ' in ' + sourcedir)
+    for root, dirs, files in os.walk(sourcedir):
+        for name in files:
+            if name == file:
+                logger.info('copy ' + os.path.join(root, name) + ' to ' + destdir)
+                Copy.copyGlobFiles(os.path.join(root, name), destdir)
+                return os.path.join(root, name)
+    return 'None'
+
+
+def copyFiletoLibDir(sourcedir, destdir, file, brand):
+    source = os.path.join(sourcedir, 'lib', file)
+    # try to find the same file under lib dir first
+    if os.path.exists(source):
+        logger.info('copy ' + source + ' to ' + destdir)
+        Copy.copyGlobFiles(source, destdir)
+        return source
+    else:
+        source = copyFiletoPackage(sourcedir, destdir, file, brand)
+        return source
