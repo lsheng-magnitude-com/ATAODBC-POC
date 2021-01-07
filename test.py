@@ -26,7 +26,7 @@ def main():
     runCommand('docker run --volume /home:/home --detach --name build_env --net=host simbadevops/centos7-gcc5_5:latest tail -f /dev/null')
     runCommand('docker ps')
     runCommandinDocker('cat /etc/os-release')
-    runCommandinDocker('cd /home/runner/work/ATA/ATA/Booster && booster.py test.xml')
+    runCommandinDocker('cd /home/runner/work/ATA/ATA/Booster && python booster.py test.xml')
     #runCommandinDocker('yum install gcc openssl-devel bzip2-devel -y')
     #runCommandinDocker('yum install wget -y')
     #runCommandinDocker('yum install make -y')
