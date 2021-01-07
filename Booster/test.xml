@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
 	<Command verbose='true'>echo Hello World from Booster</Command>
+	<Command verbose='true'>export</Command>
 </Project>
