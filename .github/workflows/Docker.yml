@@ -9,7 +9,7 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  centos7 gcc5_5 32:
+  centos7-gcc5_5-32:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest 
 
@@ -34,7 +34,7 @@ jobs:
       #- name: Run command
       #  run: docker exec build_env bash -c "cat /etc/os-release"
   
-  centos7 gcc5_5 64:
+  centos7-gcc5_5-64:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest 
 
