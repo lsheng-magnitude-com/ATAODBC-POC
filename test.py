@@ -21,6 +21,7 @@ def runCommandinDocker(cmd):
 
 
 def main():
+    runCommand('export')
     runCommand('docker -v')
     runCommand('docker pull simbadevops/centos7-gcc5_5:latest')
     runCommand('docker run --volume /home:/home --detach --name build_env --net=host simbadevops/centos7-gcc5_5:latest tail -f /dev/null')
