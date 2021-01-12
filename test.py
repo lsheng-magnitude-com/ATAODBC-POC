@@ -26,7 +26,7 @@ def main():
     run_command('export')
     run_command('docker -v')
     run_command('docker pull simbadevops/centos7-gcc5_5:latest')
-    run_command('docker run --volume /home:/home --env BAMBOO_PLANNAME=' + "'" + plan_name + "'" +' --env BAMBOO_SHORTJOBNAME=' + job_name + ' --detach --name build_env --net=host simbadevops/centos7-gcc5_5:latest tail -f /dev/null')
+    run_command('docker run --volume /home:/home --env BAMBOO_PLANNAME=' + "'" + plan_name + "'" +' --env BAMBOO_SHORTJOBNAME=' + job_name + ' --env IS_GITHUB_WORKFLOW=true --detach --name build_env --net=host simbadevops/centos7-gcc5_5:latest tail -f /dev/null')
     run_command('docker ps')
     run_command_in_docker('cat /etc/os-release')
     run_command_in_docker('cd ' + workspace + '/Booster && python booster.py test.xml')

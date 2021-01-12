@@ -205,7 +205,7 @@ def initPlanSettings():
     # get project plan job and branch names
     # init setting dictionary
     settings = {}
-    if isBambooBuild():
+    if isBambooBuild() or isGitHubBuild():
         longPlanNameArray = getLongPlanNameArray()
         projectNameArray = getProjectNameArray(longPlanNameArray)
         planNameArray = getPlanNameArray(longPlanNameArray)
@@ -575,7 +575,14 @@ def parsePropsFile(file):
 
 # functions that parse bamboo plan name to get build info
 def isBambooBuild():
-    if 'BAMBOO_PLANNAME' in os.environ.keys():
+    if 'BAMBOO_PLANNAME' in os.environ.keys() and os.environ.get('IS_GITHUB_WORKFLOW', 'false') == 'false':
+        return True
+    else:
+        return False
+
+
+def isGitHubBuild():
+    if os.environ.get('IS_GITHUB_WORKFLOW', 'false') == 'true':
         return True
     else:
         return False
