@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+	<Command verbose='true'>echo Fnish $(BAMBOO_PLANNAME)</Command>
+</Project>
