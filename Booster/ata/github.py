@@ -13,6 +13,6 @@ def initPlanSettings(settings):
     return settings
 
 
-def initCompilerSettings():
+def initCompilerSettings(planSettings):
     settings = {}
     return settings
