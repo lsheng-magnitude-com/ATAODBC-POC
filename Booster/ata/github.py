@@ -17,6 +17,7 @@ def initPlanSettings(settings):
     product = product.strip()
     type = type.strip()
     plan_type = plan_type.strip()
+    env = env.strip()
     distribution, compiler, bitness = env.split().strip()
     branch = branch.strip()
 
