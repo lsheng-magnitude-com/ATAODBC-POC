@@ -12,7 +12,7 @@ def initPlanSettings(settings):
     job = os.environ.get('GITHUB_JOB')
     category, product, type = (repo.split('/')[-1]).split('-')
     plan_type = workflow.split('-')[0].strip()
-    env = workflow.split('-').strip()
+    env = workflow.split('-')[1].strip()
     branch = ref.split('/')[-1]
     category = category.strip()
     product = product.strip()
