@@ -11,16 +11,17 @@ def initPlanSettings(settings):
     ref = os.environ.get('GITHUB_REF')
     job = os.environ.get('GITHUB_JOB')
     category, product, type = (repo.split('/')[-1]).split('-')
-    plan_type, env = workflow.split('-')
+    plan_type = workflow.split('-')[0].strip()
+    env = workflow.split('-').strip()
     branch = ref.split('/')[-1]
     category = category.strip()
     product = product.strip()
     type = type.strip()
     plan_type = plan_type.strip()
     print env
-    distribution = env[0].strip()
-    compiler = env[1].strip()
-    bitness = env[2].strip()
+    distribution = env.split(' ')[0].strip()
+    compiler = env.split(' ')[1].strip()
+    bitness = env.split(' ')[2].strip()
     branch = branch.strip()
 
     settings['platform'] = ''
@@ -28,7 +29,7 @@ def initPlanSettings(settings):
     settings['product'] = product
     settings['product_lower'] = product.lower()
     settings['branch'] = branch
-    settings['plantype'] = ''
+    settings['plantype'] = plan_type
     settings['distribution'] = distribution
     settings['compiler'] = compiler
     settings['plan'] = ''
