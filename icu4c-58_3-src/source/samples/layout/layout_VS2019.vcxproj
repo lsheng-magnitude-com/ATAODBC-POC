@@ -1,0 +1,533 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build" ToolsVersion="16.0">
+
+  <ItemGroup Label="ProjectConfigurations">
+
+    <ProjectConfiguration Include="Debug|Win32">
+
+      <Configuration>Debug</Configuration>
+
+      <Platform>Win32</Platform>
+
+    </ProjectConfiguration>
+
+    <ProjectConfiguration Include="Debug|x64">
+
+      <Configuration>Debug</Configuration>
+
+      <Platform>x64</Platform>
+
+    </ProjectConfiguration>
+
+    <ProjectConfiguration Include="Release|Win32">
+
+      <Configuration>Release</Configuration>
+
+      <Platform>Win32</Platform>
+
+    </ProjectConfiguration>
+
+    <ProjectConfiguration Include="Release|x64">
+
+      <Configuration>Release</Configuration>
+
+      <Platform>x64</Platform>
+
+    </ProjectConfiguration>
+
+  </ItemGroup>
+
+  <PropertyGroup Label="Globals">
+
+    <ProjectGuid>{497500ED-DE1D-4B20-B529-F41B5A0FBEEB}</ProjectGuid>
+
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+
+  <ProjectName>layout</ProjectName></PropertyGroup>
+
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+
+    <ConfigurationType>Application</ConfigurationType>
+
+    <UseOfMfc>false</UseOfMfc>
+
+    <CharacterSet>MultiByte</CharacterSet>
+
+    <PlatformToolset>v142</PlatformToolset>
+
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+
+    <ConfigurationType>Application</ConfigurationType>
+
+    <UseOfMfc>false</UseOfMfc>
+
+    <CharacterSet>MultiByte</CharacterSet>
+
+    <PlatformToolset>v142</PlatformToolset>
+
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+
+    <ConfigurationType>Application</ConfigurationType>
+
+    <UseOfMfc>false</UseOfMfc>
+
+    <CharacterSet>MultiByte</CharacterSet>
+
+    <PlatformToolset>v142</PlatformToolset>
+
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+
+    <ConfigurationType>Application</ConfigurationType>
+
+    <UseOfMfc>false</UseOfMfc>
+
+    <CharacterSet>MultiByte</CharacterSet>
+
+    <PlatformToolset>v142</PlatformToolset>
+
+  </PropertyGroup>
+
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props"/>
+
+  <ImportGroup Label="ExtensionSettings">
+
+  </ImportGroup>
+
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props"/>
+
+  </ImportGroup>
+
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props"/>
+
+  </ImportGroup>
+
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props"/>
+
+  </ImportGroup>
+
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props"/>
+
+  </ImportGroup>
+
+  <PropertyGroup Label="UserMacros"/>
+
+  <PropertyGroup>
+
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\x86\Release\</OutDir>
+
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\x86\Release\</IntDir>
+
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\x64\Release\</OutDir>
+
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\x64\Release\</IntDir>
+
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\x86\Debug\</OutDir>
+
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\x86\Debug\</IntDir>
+
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\x64\Debug\</OutDir>
+
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\x64\Debug\</IntDir>
+
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+
+  </PropertyGroup>
+
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+
+    <Midl>
+
+      <TypeLibraryName>.\x86\Release/layout.tlb</TypeLibraryName>
+
+    </Midl>
+
+    <ClCompile>
+
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\include\layout;..\..\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;WIN32;UNICODE;_CRT_SECURE_NO_DEPRECATE;LE_USE_CMEMORY;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+
+      <StringPooling>true</StringPooling>
+
+      <RuntimeLibrary>$(RuntimeLibraryRelease)</RuntimeLibrary>
+
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+
+      <PrecompiledHeader>
+
+      </PrecompiledHeader>
+
+      <PrecompiledHeaderOutputFile>.\x86\Release/layout.pch</PrecompiledHeaderOutputFile>
+
+      <AssemblerListingLocation>.\x86\Release/</AssemblerListingLocation>
+
+      <ObjectFileName>.\x86\Release/</ObjectFileName>
+
+      <ProgramDataBaseFileName>.\x86\Release/</ProgramDataBaseFileName>
+
+      <WarningLevel>Level3</WarningLevel>
+
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+
+      <CompileAs>Default</CompileAs>
+
+    </ClCompile>
+
+    <ResourceCompile>
+
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+
+      <Culture>0x0409</Culture>
+
+    </ResourceCompile>
+
+    <Link>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+
+      <AdditionalDependencies>..\..\..\lib\sbiculx_32.lib;..\..\..\lib\sbicule_32.lib;..\..\..\lib\sbicuuc_32.lib;..\..\..\lib\sbicuin_32.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+
+      <OutputFile>.\x86\Release/layout.exe</OutputFile>
+
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+
+      <ProgramDatabaseFile>.\x86\Release/layout.pdb</ProgramDatabaseFile>
+
+      <SubSystem>Windows</SubSystem>
+
+
+
+    <GenerateDebugInformation>true</GenerateDebugInformation><AdditionalOptions>/FORCE:MULTIPLE %(AdditionalOptions)</AdditionalOptions></Link>
+
+  </ItemDefinitionGroup>
+
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+
+    <Midl>
+
+      <TargetEnvironment>X64</TargetEnvironment>
+
+      <TypeLibraryName>.\x64\Release/layout.tlb</TypeLibraryName>
+
+    </Midl>
+
+    <ClCompile>
+
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\include\layout;..\..\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;WIN64;WIN32;UNICODE;_CRT_SECURE_NO_DEPRECATE;LE_USE_CMEMORY;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+
+      <StringPooling>true</StringPooling>
+
+      <RuntimeLibrary>$(RuntimeLibraryRelease)</RuntimeLibrary>
+
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+
+      <PrecompiledHeader>
+
+      </PrecompiledHeader>
+
+      <PrecompiledHeaderOutputFile>.\x64\Release/layout.pch</PrecompiledHeaderOutputFile>
+
+      <AssemblerListingLocation>.\x64\Release/</AssemblerListingLocation>
+
+      <ObjectFileName>.\x64\Release/</ObjectFileName>
+
+      <ProgramDataBaseFileName>.\x64\Release/</ProgramDataBaseFileName>
+
+      <WarningLevel>Level3</WarningLevel>
+
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+
+      <CompileAs>Default</CompileAs>
+
+    </ClCompile>
+
+    <ResourceCompile>
+
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+
+      <Culture>0x0409</Culture>
+
+    </ResourceCompile>
+
+    <Link>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+
+      <AdditionalDependencies>..\..\..\lib64\sbiculx_64.lib;..\..\..\lib64\sbicule_64.lib;..\..\..\lib64\sbicuuc_64.lib;..\..\..\lib64\sbicuin_64.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+
+      <OutputFile>.\x64\Release/layout.exe</OutputFile>
+
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+
+      <ProgramDatabaseFile>.\x64\Release/layout.pdb</ProgramDatabaseFile>
+
+      <SubSystem>Windows</SubSystem>
+
+
+
+      <TargetMachine>MachineX64</TargetMachine>
+
+    <GenerateDebugInformation>true</GenerateDebugInformation><AdditionalOptions>/FORCE:MULTIPLE %(AdditionalOptions)</AdditionalOptions></Link>
+
+  </ItemDefinitionGroup>
+
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+
+    <Midl>
+
+      <TypeLibraryName>.\x86\Debug/layout.tlb</TypeLibraryName>
+
+    </Midl>
+
+    <ClCompile>
+
+      <Optimization>Disabled</Optimization>
+
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\include\layout;..\..\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+
+      <PreprocessorDefinitions>_DEBUG;WIN32;UNICODE;LE_USE_CMEMORY;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+
+      <RuntimeLibrary>$(RuntimeLibraryDebug)</RuntimeLibrary>
+
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+
+      <PrecompiledHeader>
+
+      </PrecompiledHeader>
+
+      <PrecompiledHeaderOutputFile>.\x86\Debug/layout.pch</PrecompiledHeaderOutputFile>
+
+      <AssemblerListingLocation>.\x86\Debug/</AssemblerListingLocation>
+
+      <ObjectFileName>.\x86\Debug/</ObjectFileName>
+
+      <ProgramDataBaseFileName>.\x86\Debug/</ProgramDataBaseFileName>
+
+      <WarningLevel>Level3</WarningLevel>
+
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+
+
+      <CompileAs>Default</CompileAs>
+
+    </ClCompile>
+
+    <ResourceCompile>
+
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+
+      <Culture>0x0409</Culture>
+
+    </ResourceCompile>
+
+    <Link>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+
+      <AdditionalDependencies>..\..\..\lib\sbiculxd_32.lib;..\..\..\lib\sbiculed_32.lib;..\..\..\lib\sbicuucd_32.lib;..\..\..\lib\sbicuind_32.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+
+      <OutputFile>.\x86\Debug/layout.exe</OutputFile>
+
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+
+      <ProgramDatabaseFile>.\x86\Debug/layout.pdb</ProgramDatabaseFile>
+
+      <SubSystem>Windows</SubSystem>
+
+
+
+    <AdditionalOptions>/FORCE:MULTIPLE %(AdditionalOptions)</AdditionalOptions></Link>
+
+  </ItemDefinitionGroup>
+
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+
+    <Midl>
+
+      <TargetEnvironment>X64</TargetEnvironment>
+
+      <TypeLibraryName>.\x64\Debug/layout.tlb</TypeLibraryName>
+
+    </Midl>
+
+    <ClCompile>
+
+      <Optimization>Disabled</Optimization>
+
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\include\layout;..\..\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+
+      <PreprocessorDefinitions>_DEBUG;WIN64;WIN32;UNICODE;LE_USE_CMEMORY;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+
+      <RuntimeLibrary>$(RuntimeLibraryDebug)</RuntimeLibrary>
+
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+
+      <PrecompiledHeader>
+
+      </PrecompiledHeader>
+
+      <PrecompiledHeaderOutputFile>.\x64\Debug/layout.pch</PrecompiledHeaderOutputFile>
+
+      <AssemblerListingLocation>.\x64\Debug/</AssemblerListingLocation>
+
+      <ObjectFileName>.\x64\Debug/</ObjectFileName>
+
+      <ProgramDataBaseFileName>.\x64\Debug/</ProgramDataBaseFileName>
+
+      <WarningLevel>Level3</WarningLevel>
+
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+
+      <CompileAs>Default</CompileAs>
+
+    </ClCompile>
+
+    <ResourceCompile>
+
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+
+      <Culture>0x0409</Culture>
+
+    </ResourceCompile>
+
+    <Link>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+
+      <AdditionalDependencies>..\..\..\lib64\sbiculxd_64.lib;..\..\..\lib64\sbiculed_64.lib;..\..\..\lib64\sbicuucd_64.lib;..\..\..\lib64\sbicuind_64.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+
+      <OutputFile>.\x64\Debug/layout.exe</OutputFile>
+
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+
+      <ProgramDatabaseFile>.\x64\Debug/layout.pdb</ProgramDatabaseFile>
+
+      <SubSystem>Windows</SubSystem>
+
+
+
+      <TargetMachine>MachineX64</TargetMachine>
+
+    <AdditionalOptions>/FORCE:MULTIPLE %(AdditionalOptions)</AdditionalOptions></Link>
+
+  </ItemDefinitionGroup>
+
+  <ItemGroup>
+
+    <ClCompile Include="cmaps.cpp"/>
+
+    <ClCompile Include="FontMap.cpp"/>
+
+    <ClCompile Include="FontTableCache.cpp"/>
+
+    <ClCompile Include="GDIFontInstance.cpp"/>
+
+    <ClCompile Include="GDIFontMap.cpp"/>
+
+    <ClCompile Include="GDIGUISupport.cpp"/>
+
+    <ClCompile Include="layout.cpp"/>
+
+    <ClCompile Include="paragraph.cpp"/>
+
+    <ClCompile Include="ScriptCompositeFontInstance.cpp"/>
+
+    <ClCompile Include="UnicodeReader.cpp"/>
+
+  </ItemGroup>
+
+  <ItemGroup>
+
+    <ResourceCompile Include="LayoutSample.rc"/>
+
+  </ItemGroup>
+
+  <ItemGroup>
+
+    <ClInclude Include="cmaps.h"/>
+
+    <ClInclude Include="FontMap.h"/>
+
+    <ClInclude Include="FontTableCache.h"/>
+
+    <ClInclude Include="GDIFontInstance.h"/>
+
+    <ClInclude Include="GDIFontMap.h"/>
+
+    <ClInclude Include="GDIGUISupport.h"/>
+
+    <ClInclude Include="GUISupport.h"/>
+
+    <ClInclude Include="paragraph.h"/>
+
+    <ClInclude Include="RenderingSurface.h"/>
+
+    <ClInclude Include="resource.h"/>
+
+    <ClInclude Include="ScriptCompositeFontInstance.h"/>
+
+    <ClInclude Include="sfnt.h"/>
+
+    <ClInclude Include="UnicodeReader.h"/>
+
+  </ItemGroup>
+
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
+
+  <ImportGroup Label="ExtensionTargets">
+
+  </ImportGroup>
+
+</Project>

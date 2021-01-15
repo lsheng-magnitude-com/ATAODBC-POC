@@ -1,0 +1,232 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build" ToolsVersion="11.0">
+
+  <ItemGroup Label="ProjectConfigurations">
+
+    <ProjectConfiguration Include="Debug|Win32">
+
+      <Configuration>Debug</Configuration>
+
+      <Platform>Win32</Platform>
+
+    </ProjectConfiguration>
+
+    <ProjectConfiguration Include="Release|Win32">
+
+      <Configuration>Release</Configuration>
+
+      <Platform>Win32</Platform>
+
+    </ProjectConfiguration>
+
+  </ItemGroup>
+
+  <PropertyGroup Label="Globals">
+
+    <ProjectGuid>{B5E59422-0C52-4469-AB69-0C2AFD6E37A5}</ProjectGuid>
+
+    <RootNamespace>DateFmtPerf</RootNamespace>
+
+    <Keyword>Win32Proj</Keyword>
+
+  <ProjectName>DateFmtPerf</ProjectName></PropertyGroup>
+
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+
+    <ConfigurationType>Application</ConfigurationType>
+
+    <CharacterSet>Unicode</CharacterSet>
+
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+
+    <PlatformToolset>v110</PlatformToolset>
+
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+
+    <ConfigurationType>Application</ConfigurationType>
+
+    <CharacterSet>Unicode</CharacterSet>
+
+    <PlatformToolset>v110</PlatformToolset>
+
+  </PropertyGroup>
+
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props"/>
+
+  <ImportGroup Label="ExtensionSettings">
+
+  </ImportGroup>
+
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+
+  </ImportGroup>
+
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+
+  </ImportGroup>
+
+  <PropertyGroup Label="UserMacros"/>
+
+  <PropertyGroup>
+
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)\x86\$(Configuration)\</OutDir>
+
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)\x86\$(Configuration)\</IntDir>
+
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)\x86\$(Configuration)\</OutDir>
+
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
+
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+
+  </PropertyGroup>
+
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+
+    <ClCompile>
+
+      <Optimization>Disabled</Optimization>
+
+      <AdditionalIncludeDirectories>..\..\..\..\include;..\..\..\tools\toolutil;..\..\..\common;..\..\..\tools\ctestfw;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+
+      <MinimalRebuild>true</MinimalRebuild>
+
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+
+      <RuntimeLibrary>$(RuntimeLibraryDebug)</RuntimeLibrary>
+
+      <PrecompiledHeader>
+
+      </PrecompiledHeader>
+
+      <WarningLevel>Level3</WarningLevel>
+
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+
+    </ClCompile>
+
+    <Link>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+
+      <AdditionalDependencies>sbicuucd_32.lib;sbicutud_32.lib;sbicutestd_32.lib;winmm.lib;sbicuucd_32.lib;sbicuind_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+
+      <OutputFile>.\x86\Debug/datefmtperf.exe</OutputFile>
+
+      <AdditionalLibraryDirectories>..\..\..\..\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+
+      <SubSystem>Console</SubSystem>
+
+      <TargetMachine>MachineX86</TargetMachine>
+
+    <RandomizedBaseAddress>true</RandomizedBaseAddress><AdditionalOptions>/FORCE:MULTIPLE %(AdditionalOptions)</AdditionalOptions></Link>
+
+  </ItemDefinitionGroup>
+
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+
+    <ClCompile>
+
+      <Optimization>MaxSpeed</Optimization>
+
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+
+      <AdditionalIncludeDirectories>..\..\..\..\include;..\..\..\tools\toolutil;..\..\..\common;..\..\..\tools\ctestfw;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+
+      <RuntimeLibrary>$(RuntimeLibraryRelease)</RuntimeLibrary>
+
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+
+      <PrecompiledHeader>
+
+      </PrecompiledHeader>
+
+      <WarningLevel>Level3</WarningLevel>
+
+
+    </ClCompile>
+
+    <Link>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+
+      <AdditionalDependencies>sbicuuc_32.lib;sbicutu_32.lib;sbicutest_32.lib;winmm.lib;sbicuin_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+
+      <OutputFile>$(SolutionDir)\x86\$(Configuration)/datefmtperf.exe</OutputFile>
+
+      <AdditionalLibraryDirectories>..\..\..\..\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+
+      <ProgramDatabaseFile>.\x86\Release/DateFmtPerf.pdb</ProgramDatabaseFile>
+
+      <SubSystem>Console</SubSystem>
+
+      <OptimizeReferences>
+
+      </OptimizeReferences>
+
+      <EnableCOMDATFolding>
+
+      </EnableCOMDATFolding>
+
+      <LinkTimeCodeGeneration>
+
+      </LinkTimeCodeGeneration>
+
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+
+
+      <TargetMachine>MachineX86</TargetMachine>
+
+    <AdditionalOptions>/FORCE:MULTIPLE %(AdditionalOptions)</AdditionalOptions></Link>
+
+  </ItemDefinitionGroup>
+
+  <ItemGroup>
+
+    <ClCompile Include="DateFmtPerf.cpp"/>
+
+  </ItemGroup>
+
+  <ItemGroup>
+
+    <ClInclude Include="breakdata.h"/>
+
+    <ClInclude Include="collationdata.h"/>
+
+    <ClInclude Include="datedata.h"/>
+
+    <ClInclude Include="DateFmtPerf.h"/>
+
+  </ItemGroup>
+
+  <ItemGroup>
+
+    <None Include="ReadMe.txt"/>
+
+  </ItemGroup>
+
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
+
+  <ImportGroup Label="ExtensionTargets">
+
+  </ImportGroup>
+
+</Project>
