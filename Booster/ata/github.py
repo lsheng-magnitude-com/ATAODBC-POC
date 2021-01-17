@@ -152,6 +152,22 @@ def getPackageFormat(env, plantype):
         return 'undef'
 
 
+def getImportFile(file, optional):
+    workspace = os.environ.get('GITHUB_WORKSPACE')
+    if os.path.exists(os.path.join(BOOSTER_DIR, file)):
+        importfile = os.path.join(BOOSTER_DIR, file)
+    elif os.path.exists(os.path.join(workspace, file)):
+        importfile = os.path.join(os.path.join(workspace, file))
+    else:
+        importfile = syncConfigFile(file, 'default')
+    if not os.path.exists(importfile):
+        if optional:
+            return None
+        else:
+            raise RuntimeError(fname + ' not found')
+    return importfile
+
+
 def initCompilerSettings(planSettings):
     settings = {}
     return settings

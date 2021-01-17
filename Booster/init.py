@@ -274,6 +274,14 @@ def getDependencyFiles(file, planSettings, dependencySettings):
         return {}
 
 
+def getImportFile(file, optional):
+    if isBambooBuild():
+        importfile = bamboo.getImportFile(file, optional)
+    if isGitHubBuild():
+        importfile = github.getImportFile(file, optional)
+    return importfile
+
+
 def parsePropsFile(file):
     propfilesettings = {}
     paresedsettings = {}
