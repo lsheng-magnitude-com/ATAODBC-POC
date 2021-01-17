@@ -270,9 +270,8 @@ def getDependencyFiles(file, planSettings, dependencySettings):
     if isBambooBuild():
         dependencySettings = bamboo.getDependencyFiles(file, planSettings, dependencySettings)
         return dependencySettings
-    if existsConfigFile():
+    if isGitHubBuild():
         return {}
-
 
 
 def parsePropsFile(file):
