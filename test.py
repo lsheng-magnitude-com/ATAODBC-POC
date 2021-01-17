@@ -29,7 +29,7 @@ def main():
     run_command('docker run --volume /home:/home ' + docker_env_string + ' --detach --name build_env --net=host simbadevops/centos7-gcc5_5:latest tail -f /dev/null')
     run_command('docker ps')
     run_command_in_docker('cat /etc/os-release')
-    run_command_in_docker('cd ' + workspace + '/Booster && python booster.py test.xml')
+    run_command_in_docker('cd ' + workspace + '/Booster && python booster.py ICU.build')
 
 
 def init_github_env():
