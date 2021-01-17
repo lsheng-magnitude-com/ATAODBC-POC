@@ -268,17 +268,17 @@ def setP4Root():
 
 def getDependencyFiles(file, planSettings, dependencySettings):
     if isBambooBuild():
-        dependencySettings = bamboo.getDependencyFiles(file, planSettings, dependencySettings)
+        dependencySettings = bamboo.getDependencyFiles(file, BOOSTER_DIR, planSettings, dependencySettings)
         return dependencySettings
     if isGitHubBuild():
         return {}
 
 
-def getImportFile(file, optional):
+def getImportFile(file, BOOSTER_DIR, optional):
     if isBambooBuild():
-        importfile = bamboo.getImportFile(file, optional)
+        importfile = bamboo.getImportFile(file, BOOSTER_DIR, optional)
     if isGitHubBuild():
-        importfile = github.getImportFile(file, optional)
+        importfile = github.getImportFile(file, BOOSTER_DIR, optional)
     return importfile
 
 
@@ -486,7 +486,7 @@ def setBuildFile(file, settings, dependencies, output='default'):
             importfile = substituteInString(importfile, upperCasePlanSettings)
             importfile = substituteInString(importfile, dependencies)
             optional = element.attrib.get('optional', 'false').lower() == 'true'
-            ifname = getImportFile(importfile, optional)
+            ifname = getImportFile(importfile, BOOSTER_DIR, optional)
             if ifname is not None:
                 importFile(ifname, root, settings, dependencies)
                 importFileBaseName = os.path.basename(importfile)
@@ -545,7 +545,7 @@ def setCompilerSettings(file, planSettings, dependencySettings):
             importfile = substituteInString(importfile, upperCasePlanSettings)
             importfile = substituteInString(importfile, dependencySettings)
             optional = element.attrib.get('optional', 'false').lower() == 'true'
-            ifname = getImportFile(importfile, optional)
+            ifname = getImportFile(importfile, BOOSTER_DIR, optional)
             if ifname is not None:
                 setCompilerSettings(ifname, planSettings, dependencySettings)
 

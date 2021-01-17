@@ -4,7 +4,6 @@ from pprint import pprint
 import os
 import platform
 
-
 def translateFromBambooVars(h):
     ''' translate bamboo variables, stripping BAMBOO_ prefix
     '''
@@ -821,7 +820,7 @@ def getBambooCapability(var, bamboo_var):
         return capability
 
 
-def getDependencyFiles(file, planSettings, dependencySettings):
+def getDependencyFiles(file, BOOSTER_DIR, planSettings, dependencySettings):
     try:
         xml = XMLFile(file)
     except Exception as e:
@@ -856,7 +855,7 @@ def getDependencyFiles(file, planSettings, dependencySettings):
             importfile = substituteInString(importfile, upperCasePlanSettings)
             importfile = substituteInString(importfile, dependencySettings)
             optional = element.attrib.get('optional', 'false').lower() == 'true'
-            ifname = getImportFile(importfile, optional)
+            ifname = getImportFile(importfile, BOOSTER_DIR, optional)
             if ifname is not None:
                 getDependencyFiles(ifname, planSettings, dependencySettings)
             else:
@@ -886,7 +885,7 @@ def syncConfigFile(file, labelname):
     return propsfile
 
 
-def getImportFile(file, optional):
+def getImportFile(file, BOOSTER_DIR, optional):
     p4root = os.environ.get('BAMBOO_AGENTWORKINGDIRECTORY', os.environ.get('P4ROOT', 'undef'))
     if os.path.exists(os.path.join(BOOSTER_DIR, file)):
         importfile = os.path.join(BOOSTER_DIR, file)

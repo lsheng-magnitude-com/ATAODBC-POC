@@ -152,7 +152,7 @@ def getPackageFormat(env, plantype):
         return 'undef'
 
 
-def getImportFile(file, optional):
+def getImportFile(file, BOOSTER_DIR, optional):
     workspace = os.environ.get('GITHUB_WORKSPACE')
     if os.path.exists(os.path.join(BOOSTER_DIR, file)):
         importfile = os.path.join(BOOSTER_DIR, file)
