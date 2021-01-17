@@ -267,84 +267,12 @@ def setP4Root():
 
 
 def getDependencyFiles(file, planSettings, dependencySettings):
-    try:
-        xml = XMLFile(file)
-    except Exception as e:
-        # print('Failed to parse ' + file)
-        logger.info('Failed to parse ' + file)
-        logger.error(e)
-        exit(-1)
-    root = xml.root()
+    if isBambooBuild():
+        dependencySettings = bamboo.getDependencyFiles(file, planSettings, dependencySettings)
+        return dependencySettings
+    if existsConfigFile():
+        return {}
 
-    # filter on build settings
-    for key in planSettings.keys():
-        value = str(planSettings[key])
-        root = includeAttrib(root, key, value)
-        root = excludeAttrib(root, 'skip_' + key, value)
-
-    upperCasePlanSettings = upperDictKeys(planSettings)
-    for element in root.iter():
-        if element.tag == 'Props':
-            propsfile = element.text
-            propsfile = substituteInString(propsfile, upperCasePlanSettings)
-            propsfile = substituteInString(propsfile, dependencySettings)
-            label = element.attrib.get('label', 'default')
-            propsfile = syncConfigFile(propsfile, label)
-            settings = parsePropsFile(propsfile)
-            for key in settings:
-                if key in dependencySettings:
-                    pass
-                else:
-                    dependencySettings[key] = settings[key]
-        if element.tag == 'Import':
-            importfile = element.text
-            importfile = substituteInString(importfile, upperCasePlanSettings)
-            importfile = substituteInString(importfile, dependencySettings)
-            optional = element.attrib.get('optional', 'false').lower() == 'true'
-            ifname = getImportFile(importfile, optional)
-            if ifname is not None:
-                getDependencyFiles(ifname, planSettings, dependencySettings)
-            else:
-                logger.info('optional import file {name} not exist'.format(name=element.text))
-
-    return dependencySettings
-
-
-def syncConfigFile(file, labelname):
-    propsfileview = '//' + file
-    p4root = os.environ.get('BAMBOO_AGENTWORKINGDIRECTORY', os.environ.get('P4ROOT', 'undef'))
-    propsfile = os.path.join(p4root, file)
-    removeSingleFile(propsfile)
-    if labelname == 'default':
-        labelname = os.environ.get('BAMBOO_PRODUCT_LABEL')
-        longlabel = os.environ.get(labelname)
-    else:
-        longlabel = os.environ.get(labelname)
-    longlabel = longlabel.replace('__head__CL', 'head__CL')
-    longlabel = longlabel.replace('__head__', 'head')
-    logger.info('== Load file ' + propsfile + ' from ' + longlabel + ' ==')
-    (label, changelists) = P4Sync.parseLabel(longlabel)
-    p4 = P4Sync.getP4Exe()
-    P4Sync.sync(p4, propsfileview, label)
-    for cl in changelists:
-        P4Sync.unshelvedepot(p4, cl, propsfileview)
-    return propsfile
-
-
-def getImportFile(file, optional):
-    p4root = os.environ.get('BAMBOO_AGENTWORKINGDIRECTORY', os.environ.get('P4ROOT', 'undef'))
-    if os.path.exists(os.path.join(BOOSTER_DIR, file)):
-        importfile = os.path.join(BOOSTER_DIR, file)
-    elif os.path.exists(os.path.join(p4root, file)):
-        importfile = os.path.join(os.path.join(p4root, file))
-    else:
-        importfile = syncConfigFile(file, 'default')
-    if not os.path.exists(importfile):
-        if optional:
-            return None
-        else:
-            raise RuntimeError(fname + ' not found')
-    return importfile
 
 
 def parsePropsFile(file):
