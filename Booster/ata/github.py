@@ -156,7 +156,7 @@ def getImportFile(file, BOOSTER_DIR, optional):
     workspace = os.environ.get('GITHUB_WORKSPACE')
     if os.path.exists(os.path.join(BOOSTER_DIR, file)):
         importfile = os.path.join(BOOSTER_DIR, file)
-    elif os.path.exists(os.path.join(workspace, file)):
+    else:
         importfile = os.path.join(os.path.join(workspace, file))
     if not os.path.exists(importfile):
         if optional:
