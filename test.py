@@ -37,6 +37,7 @@ def init_github_env():
     workflow = os.environ.get('GITHUB_WORKFLOW','')
     ref = os.environ.get('GITHUB_REF')
     job = os.environ.get('GITHUB_JOB', '')
+    workspace = os.environ.get('GITHUB_WORKSPACE', '')
     #category, product, type = (repo.split('/')[-1]).split('-')
     #plan_type, env = workflow.split('-')
     #branch = ref.split('/')[-1]
@@ -48,7 +49,7 @@ def init_github_env():
     #branch = branch.strip()
     #plan_name = plan_type + ' ' + type + ' ' + category + ' - ' + env + ' - ' + product + ' ' + branch
     #job_name = os.environ.get('GITHUB_JOB', '').replace("'", "")
-    docker_env_string = '--env GITHUB_REPOSITORY=' + "'" + repo + "'" + ' --env GITHUB_WORKFLOW=' + "'" + workflow + "'" + ' --env GITHUB_REF=' + "'" + ref + "'" + ' --env GITHUB_JOB=' + "'" + job + "'"
+    docker_env_string = '--env GITHUB_REPOSITORY=' + "'" + repo + "'" + ' --env GITHUB_WORKFLOW=' + "'" + workflow + "'" + ' --env GITHUB_REF=' + "'" + ref + "'" + ' --env GITHUB_JOB=' + "'" + job + "'" + ' --env GITHUB_WORKSPACE=' + "'" + workspace + "'"
     return docker_env_string
 
 
