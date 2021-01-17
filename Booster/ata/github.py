@@ -158,8 +158,6 @@ def getImportFile(file, BOOSTER_DIR, optional):
         importfile = os.path.join(BOOSTER_DIR, file)
     elif os.path.exists(os.path.join(workspace, file)):
         importfile = os.path.join(os.path.join(workspace, file))
-    else:
-        importfile = syncConfigFile(file, 'default')
     if not os.path.exists(importfile):
         if optional:
             return None
