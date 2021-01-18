@@ -159,6 +159,7 @@
 	</Windows>
 	
 	<Linux platform='Linux'>
+        <Command cwd='$(GITHUB_WORKSPACE)/icu4c-58_3-src/source'>chmod -R 777 ./*</Command>
 		<SetEnvVariables>
 			<LD_LIBRARY_PATH compiler='gcc4_9'>/opt/gcc/4.9.2/lib:/opt/gcc/4.9.2/lib64:/usr/local/src/gcc5.5.0/lib:/usr/local/src/gcc5.5.0/lib64</LD_LIBRARY_PATH>
 			<LD_LIBRARY_PATH compiler='gcc5_5'>/usr/local/gcc5.5.0/lib:/usr/local/gcc5.5.0/lib64:/usr/local/src/gcc5.5.0/lib:/usr/local/src/gcc5.5.0/lib64</LD_LIBRARY_PATH>
