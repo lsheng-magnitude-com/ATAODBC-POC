@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
+    <Import>Config/Common/Compiler.settings</Import>
 	<Windows platform='Windows'>
 		<Command cwd='$(P4_ROOT)/$(SOURCE_DEPO)'>cd .. &amp;&amp; attrib -r ./*.* /s</Command>
 		<!--Build Release and debug-->

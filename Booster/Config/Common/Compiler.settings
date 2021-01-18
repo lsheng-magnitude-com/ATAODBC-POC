@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Settings>
+    <Variables>
+        <!--Get build arch in simba naming convention-->
+        <BUILDARCH platform='Windows' bitness='32'>Win32</BUILDARCH>
+        <BUILDARCH platform='Windows' bitness='64'>x64</BUILDARCH>
+        <BUILDARCH platform='Linux' skip_compiler='gcc8_3__armhf,gcc8_3__aarch64' bitness='32'>x86</BUILDARCH>
+        <BUILDARCH platform='Linux' skip_compiler='gcc8_3__armhf,gcc8_3__aarch64' bitness='64'>x8664</BUILDARCH>
+        <BUILDARCH platform='Linux' compiler='gcc8_3__aarch64' bitness='64'>aarch64</BUILDARCH>
+        <BUILDARCH platform='Linux' compiler='gcc8_3__armhf' bitness='32'>armhf</BUILDARCH>
+        <COMPILER></COMPILER>
+    </Variables>
+</Settings>
