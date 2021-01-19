@@ -18,7 +18,10 @@ jobs:
 
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1
+   
+    - name: check env
+      uses: set
       
-    - name: check
+    - name: booster
       run: python booster.py ICU.build
       working-directory: Booster
