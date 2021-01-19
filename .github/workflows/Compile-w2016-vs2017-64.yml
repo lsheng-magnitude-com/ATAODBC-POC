@@ -20,7 +20,7 @@ jobs:
       uses: microsoft/setup-msbuild@v1
    
     - name: check env
-      uses: set
+      run: set
       
     - name: booster
       run: python booster.py ICU.build
