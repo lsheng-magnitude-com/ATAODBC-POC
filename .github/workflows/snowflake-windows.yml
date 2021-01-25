@@ -27,6 +27,26 @@ jobs:
       - name: get source
         run: git clone https://github.com/snowflakedb/pdo_snowflake.git c:\pdo_snowflake
         shell: cmd
+      
+      - name: remove 
+        run: rmdir c:\pdo_snowflake\libsnowflakeclient\lib\linux /s/q
+        shell: cmd
+        working-directory: c:\pdo_snowflake
+
+      - name: remove 
+        run: rmdir c:\pdo_snowflake\libsnowflakeclient\lib\darwin /s/q
+        shell: cmd
+        working-directory: c:\pdo_snowflake
+      
+      - name: remove 
+        run: rmdir c:\pdo_snowflake\libsnowflakeclient\deps-build\linux /s/q
+        shell: cmd
+        working-directory: c:\pdo_snowflake
+      
+      - name: remove 
+        run: rmdir c:\pdo_snowflake\libsnowflakeclient\deps-build\darwin /s/q
+        shell: cmd
+        working-directory: c:\pdo_snowflake
         
       - name: check
         run: dir /S
@@ -39,7 +59,7 @@ jobs:
         working-directory: c:\pdo_snowflake
         
       - name: setup php
-        run: set PHPROOT=c:\php && .\scripts\run_setup_php.bat x64 Release VS15 7.2.24 c:\php-sdk
+        run: .\scripts\run_setup_php.bat x64 Release VS15 7.2.24 c:\php-sdk
         shell: cmd
         working-directory:  c:\pdo_snowflake
       
@@ -57,5 +77,5 @@ jobs:
         shell: cmd
         
       - name: check file
-        run: c:\php\php.exe -dextension=-dextension=ext\php_pdo_snowflake.dll -m
+        run: c:\tools\php\php.exe -dextension=ext\php_pdo_snowflake.dll -m
         working-directory:  c:\pdo_snowflake
