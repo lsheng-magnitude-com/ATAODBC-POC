@@ -28,10 +28,10 @@ jobs:
         run: git clone https://github.com/snowflakedb/pdo_snowflake.git
       
       - name: check php home
-      - run: echo %PHP_HOME%
-      - shell: cmd
+        run: echo %PHP_HOME%
+        shell: cmd
      
       - name: check source
-      - run: dir
-      - shell: cmd
+        run: dir
+        shell: cmd
        
