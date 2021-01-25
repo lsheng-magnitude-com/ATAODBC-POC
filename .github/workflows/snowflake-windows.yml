@@ -27,6 +27,14 @@ jobs:
       - name: get source
         run: git clone https://github.com/snowflakedb/pdo_snowflake.git c:\pdo_snowflake
       
+      - name: set php home
+        run: set PHP_HOME=c:\php
+        shell: cmd
+        
+      - name: setup php root
+        run: set PHPROOT=c:\php
+        shell: cmd
+      
       - name: setup php sdk
         #run: git clone https://github.com/Microsoft/php-sdk-binary-tools.git c:\php-sdk && cd c:\php-sdk && git checkout php-sdk-2.2.0
         run: .\scripts\setup_php_sdk.bat x64 Release VS15 C:\php-sdk
@@ -53,5 +61,5 @@ jobs:
         shell: cmd
         
       - name: check file
-        run: c:\tools\php\php.exe -dextension=c:\php-sdk\phpmaster\vc15\x64\php-src\ext\pdo_snowflake\dist\win64\0.2.0\php_pdo_snowflake.dll -m
+        run: c:\php\php.exe -dextension=-dextension=ext\php_pdo_snowflake.dll -m
         working-directory:  c:\pdo_snowflake
