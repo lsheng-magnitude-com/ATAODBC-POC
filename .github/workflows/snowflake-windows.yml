@@ -87,4 +87,4 @@ jobs:
          
       - name: check file
         run: c:\tools\php\php.exe -dextension=ext\php_pdo_snowflake.dll -m
-        working-directory:  c:\pdo_snowflake
+        working-directory:  c:\tools\php
