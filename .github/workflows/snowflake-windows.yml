@@ -28,7 +28,7 @@ jobs:
         run: git clone https://github.com/snowflakedb/pdo_snowflake.git
       
       - name: setup php sdk 1
-        run: git clone https://github.com/Microsoft/php-sdk-binary-tools.git c:\php-sdk && cd c:\php-sdk && checkout php-sdk-2.2.0
+        run: git clone https://github.com/Microsoft/php-sdk-binary-tools.git c:\php-sdk && cd c:\php-sdk && git checkout php-sdk-2.2.0
              
       - name: check env
         run: set
