@@ -29,13 +29,15 @@ jobs:
         shell: cmd
         
       - name: check
-        run: dir c:\
+        run: dir /S
         shell: cmd
+        working-directory: c:\pdo_snowflake
       
       - name: setup php sdk
         #run: git clone https://github.com/Microsoft/php-sdk-binary-tools.git c:\php-sdk && cd c:\php-sdk && git checkout php-sdk-2.2.0
-        run: c:\pdo_snowflake\scripts\setup_php_sdk.bat x64 Release VS15 c:\php-sdk
+        run: .\scripts\setup_php_sdk.bat x64 Release VS15 c:\php-sdk
         shell: cmd
+        working-directory: c:\pdo_snowflake
         
       - name: setup php
         #run: git clone https://github.com/Microsoft/php-sdk-binary-tools.git c:\php-sdk && cd c:\php-sdk && git checkout php-sdk-2.2.0
