@@ -25,15 +25,7 @@ jobs:
       #    extensions: pdo, json
 
       - name: get source
-        run: git clone https://github.com/snowflakedb/pdo_snowflake.git c:\pdo_snowflake
-      
-      - name: set php home
-        run: set PHP_HOME=c:\php
-        shell: cmd
-        
-      - name: setup php root
-        run: set PHPROOT=c:\php
-        shell: cmd
+        run: git clone https://github.com/snowflakedb/pdo_snowflake.git c:\pdo_snowflak
       
       - name: setup php sdk
         #run: git clone https://github.com/Microsoft/php-sdk-binary-tools.git c:\php-sdk && cd c:\php-sdk && git checkout php-sdk-2.2.0
@@ -52,7 +44,7 @@ jobs:
         shell: cmd
       
       - name: build
-        run: .\scripts\run_build_pdo_snowflake.bat x64 Release VS15 7.4.13 c:\php-sdk
+        run: set PHP_HOME=c:\tools\php && .\scripts\run_build_pdo_snowflake.bat x64 Release VS15 7.4.13 c:\php-sdk
         shell: cmd
         working-directory:  c:\pdo_snowflake
     
@@ -61,5 +53,5 @@ jobs:
         shell: cmd
         
       - name: check file
-        run: c:\php\php.exe -dextension=-dextension=ext\php_pdo_snowflake.dll -m
+        run: c:\tools\php\php.exe -dextension=-dextension=ext\php_pdo_snowflake.dll -m
         working-directory:  c:\pdo_snowflake
