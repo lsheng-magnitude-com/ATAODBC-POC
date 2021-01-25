@@ -30,13 +30,13 @@ jobs:
         
       - name: setup php sdk
         #run: git clone https://github.com/Microsoft/php-sdk-binary-tools.git c:\php-sdk && cd c:\php-sdk && git checkout php-sdk-2.2.0
-        run: .\scripts\setup_php_sdk.bat x64 Release VS15 C:\php-sdk
+        run: .\scripts\setup_php_sdk.bat x64 Release VS15 c:\php-sdk
         shell: cmd
         working-directory:  c:\pdo_snowflake
         
       - name: setup php
         #run: git clone https://github.com/Microsoft/php-sdk-binary-tools.git c:\php-sdk && cd c:\php-sdk && git checkout php-sdk-2.2.0
-        run: .\scripts\run_setup_php.bat x64 Release VS15 7.2.24 C:\php-sdk
+        run: .\scripts\run_setup_php.bat x64 Release VS15 7.2.24 c:\php-sdk
         shell: cmd
         working-directory:  c:\pdo_snowflake
       
