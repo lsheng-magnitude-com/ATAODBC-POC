@@ -49,7 +49,7 @@ jobs:
         working-directory:  c:\pdo_snowflake
     
       - name: check
-        run: dir c:\php-sdk\phpmaster /S
+        run: dir c:\php-sdk /S
         shell: cmd
         
       - name: check
