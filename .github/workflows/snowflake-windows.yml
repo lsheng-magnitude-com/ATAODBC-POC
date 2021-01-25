@@ -80,6 +80,10 @@ jobs:
         run: xcopy c:\php-sdk\phpmaster\vc15\x64\php-src\x64\Release_TS\php_pdo_snowflake.dll c:\tools\php\ext\php_pdo_snowflake.dll
         shell: cmd
         working-directory:  c:\pdo_snowflake
+  
+      - name: check php
+        run: dir c:\tools\php /S
+        shell: cmd
          
       - name: check file
         run: c:\tools\php\php.exe -dextension=ext\php_pdo_snowflake.dll -m
