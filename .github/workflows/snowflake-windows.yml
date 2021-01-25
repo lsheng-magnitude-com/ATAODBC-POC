@@ -35,11 +35,11 @@ jobs:
         shell: cmd
      
       - name: check source
-        run: dir c:\pdo_snowflake
+        run: dir c:\php-sdk
         shell: cmd
       
-      - name: build
-        run: .\scripts\run_build_pdo_snowflake.bat x64 Release VS15 7.4.13 c:\php-sdk
-        shell: cmd
-        working-directory:  c:\pdo_snowflake
+      #- name: build
+      #  run: .\scripts\run_build_pdo_snowflake.bat x64 Release VS15 7.4.13 c:\php-sdk
+      #  shell: cmd
+      #  working-directory:  c:\pdo_snowflake
        
