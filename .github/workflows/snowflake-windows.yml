@@ -27,8 +27,8 @@ jobs:
       - name: get source
         run: git clone https://github.com/snowflakedb/pdo_snowflake.git
       
-      - name: check php home
-        run: echo %PHP_HOME%
+      - name: check env
+        run: set
         shell: cmd
      
       - name: check source
