@@ -42,16 +42,20 @@ jobs:
       - name: check env
         run: set
         shell: cmd
-     
-      - name: check source
-        run: dir c:\php-sdk
-        shell: cmd
       
       - name: build
         run: .\scripts\run_build_pdo_snowflake.bat x64 Release VS15 7.4.13 c:\php-sdk
         shell: cmd
         working-directory:  c:\pdo_snowflake
-      
+ 
+      - name: check
+        run: dir c:\php-sdk\phpmaster\vs15\x64\php-src\ext\pdo_snowflake
+        shell: cmd
+    
+      - name: check
+        run: dir c:\php-sdk\phpmaster\vs15\x64\deps
+        shell: cmd
+        
       - name: check file
-        run: c:\tools\php\php.exe -dextension=ext\php_pdo_snowflake.dll -m
+        run: c:\php\php.exe -dextension=ext\php_pdo_snowflake.dll -m
         working-directory:  c:\pdo_snowflake
