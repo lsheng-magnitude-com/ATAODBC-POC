@@ -39,6 +39,6 @@ jobs:
         shell: cmd
       
       - name: build
-        run: .\snowflake_pdo\\scripts\run_build_pdo_snowflake.bat x64 Release VS15 7.4.13 C:\php-sdk
+        run: .\snowflake_pdo\scripts\run_build_pdo_snowflake.bat x64 Release VS15 7.4.13 C:\php-sdk
         shell: cmd
        
