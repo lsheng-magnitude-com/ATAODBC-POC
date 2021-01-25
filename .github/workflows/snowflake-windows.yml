@@ -22,8 +22,16 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: 7.4.13
-          extensions: pdo, json2
+          extensions: pdo, json
 
-      # Runs a single command using the runners shell
       - name: get source
         run: git clone https://github.com/snowflakedb/pdo_snowflake.git
+      
+      - name: check php home
+      - run: echo %PHP_HOME%
+      - shell: cmd
+     
+      - name: check source
+      - run: dir
+      - shell: cmd
+       
