@@ -34,14 +34,12 @@ jobs:
         working-directory: c:\pdo_snowflake
       
       - name: setup php sdk
-        #run: git clone https://github.com/Microsoft/php-sdk-binary-tools.git c:\php-sdk && cd c:\php-sdk && git checkout php-sdk-2.2.0
         run: .\scripts\setup_php_sdk.bat x64 Release VS15 c:\php-sdk
         shell: cmd
         working-directory: c:\pdo_snowflake
         
       - name: setup php
-        #run: git clone https://github.com/Microsoft/php-sdk-binary-tools.git c:\php-sdk && cd c:\php-sdk && git checkout php-sdk-2.2.0
-        run: .\scripts\run_setup_php.bat x64 Release VS15 7.2.24 c:\php-sdk
+        run: set PHPROOT=c:\php && .\scripts\run_setup_php.bat x64 Release VS15 7.2.24 c:\php-sdk
         shell: cmd
         working-directory:  c:\pdo_snowflake
       
@@ -50,7 +48,7 @@ jobs:
         shell: cmd
       
       - name: build
-        run: set PHP_HOME=c:\tools\php && .\scripts\run_build_pdo_snowflake.bat x64 Release VS15 7.4.13 c:\php-sdk
+        run: .\scripts\run_build_pdo_snowflake.bat x64 Release VS15 7.4.13 c:\php-sdk
         shell: cmd
         working-directory:  c:\pdo_snowflake
     
@@ -59,5 +57,5 @@ jobs:
         shell: cmd
         
       - name: check file
-        run: c:\tools\php\php.exe -dextension=-dextension=ext\php_pdo_snowflake.dll -m
+        run: c:\php\php.exe -dextension=-dextension=ext\php_pdo_snowflake.dll -m
         working-directory:  c:\pdo_snowflake
