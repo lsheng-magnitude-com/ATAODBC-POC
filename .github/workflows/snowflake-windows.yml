@@ -27,9 +27,9 @@ jobs:
       - name: get source
         run: git clone https://github.com/snowflakedb/pdo_snowflake.git
       
-      - name: setup php sdk
-        run: .\pdo_snowflake\scripts\setup_php_sdk.bat x64 Release VS19 C:\php-sdk
-        
+      - name: setup php sdk 1
+        run: git clone https://github.com/Microsoft/php-sdk-binary-tools.git c:\php-sdk && cd c:\php-sdk && checkout php-sdk-2.2.0
+             
       - name: check env
         run: set
         shell: cmd
