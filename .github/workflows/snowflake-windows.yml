@@ -52,10 +52,6 @@ jobs:
         run: dir c:\php-sdk /S
         shell: cmd
         
-      - name: check
-        run: dir c:\php-sdk\phpmaster\vs15\x64\php-src /S
-        shell: cmd
-        
       - name: check file
-        run: c:\php\php.exe -dextension=ext\php_pdo_snowflake.dll -m
+        run: c:\php\php.exe -dextension=c:\php-sdk\phpmaster\vc15\x64\php-src\ext\pdo_snowflake\dist\win64\0.2.0\php_pdo_snowflake.dll -m
         working-directory:  c:\pdo_snowflake
