@@ -17,6 +17,7 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - uses: actions/checkout@v2
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       #- name: setup php
       #  uses: shivammathur/setup-php@v2
@@ -81,6 +82,10 @@ jobs:
         shell: cmd
         working-directory:  c:\pdo_snowflake
   
+      - name: copy php ini
+        run: xcopy .\php.ini c:\tools\php\ /I/Y/F
+        shell: cmd
+        
       - name: check php
         run: dir c:\tools\php /S
         shell: cmd
@@ -95,6 +100,11 @@ jobs:
         shell: cmd
          
       - name: check file
-        run: c:\tools\php\php.exe -dextension=php_pdo_snowflake.dll -m
+        run: c:\tools\php\php.exe -dextension=ext\php_pdo_snowflake.dll -m
+        working-directory:  c:\tools\php
+        shell: cmd
+      
+      - name: check file
+        run: c:\tools\php\php.exe -dextension=c:\tools\php\ext\php_pdo_snowflake.dll -m
         working-directory:  c:\tools\php
         shell: cmd
