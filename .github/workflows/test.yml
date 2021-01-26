@@ -16,7 +16,12 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: c:\"Program Files (x86)"\"Microsoft Visual Studio"\2017\Community\VC\Tools\MSVC\14.14.26428\bin\Hostx64\x64\dumpbin
+      - name: setup php
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.2
+          extensions: pdo, json
+        
+      - name: check php
+        run: dir c:/tools/php/ext
         shell: cmd
