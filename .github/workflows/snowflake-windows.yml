@@ -55,20 +55,16 @@ jobs:
         run: dir /S
         shell: cmd
         working-directory: c:\pdo_snowflake
-      
+        
       - name: setup php sdk
+        run: .\scripts\setup_php_sdk.bat x64 Release VS15 c:\php-sdk
+        shell: cmd
+        working-directory: c:\pdo_snowflake
+        
+      - name: copy scripts
         run: xcopy .\setup_php.bat c:\pdo_snowflake\scripts\ /I/Y/F
         shell: cmd
-
-      - name: copy scripts
-        #uses: shivammathur/setup-php@v2
-        #with:
-        #  php-version: 7.2
-        #  extensions: pdo, json
-        run: .\scripts\run_setup_php.bat x64 Release VS15 7.2.34 c:\php-sdk
-        shell: cmd
-        working-directory:  c:\pdo_snowflake
-
+        
       - name: setup php
         #uses: shivammathur/setup-php@v2
         #with:
