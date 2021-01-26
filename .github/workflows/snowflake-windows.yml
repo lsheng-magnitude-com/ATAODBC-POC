@@ -79,7 +79,7 @@ jobs:
         shell: cmd
       
       - name: build
-        run: .\scripts\run_build_pdo_snowflake.bat x64 Release VS15 7.4.13 c:\php-sdk
+        run: set PHP_HOME=c:\tools\php && .\scripts\run_build_pdo_snowflake.bat x64 Release VS15 7.4.13 c:\php-sdk
         shell: cmd
         working-directory:  c:\pdo_snowflake
     
