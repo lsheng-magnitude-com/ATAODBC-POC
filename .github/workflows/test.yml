@@ -16,29 +16,32 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      #- uses: actions/checkout@v2
-      #- name: setup php
-      #  uses: shivammathur/setup-php@v2
-      #  with:
-      #    php-version: 7.2
-      #    extensions: pdo, json
-      - name: get source
-        run: git clone https://github.com/snowflakedb/pdo_snowflake.git c:\pdo_snowflake
-        shell: cmd
-      
-      - name: setup php sdk
-        run: .\scripts\setup_php_sdk.bat x64 Release VS15 c:\php-sdk
-        shell: cmd
-        working-directory: c:\pdo_snowflake
-        
+      - uses: actions/checkout@v2
       - name: setup php
-        #uses: shivammathur/setup-php@v2
-        #with:
-        #  php-version: 7.2
-        #  extensions: pdo, json
-        run: .\scripts\run_setup_php.bat x64 Release VS15 7.2.24 c:\php-sdk
-        shell: cmd
-        working-directory:  c:\pdo_snowflake
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.2
+          extensions: pdo, json
+        env:
+          phpts: ts
+      
+      #- name: get source
+      #  run: git clone https://github.com/snowflakedb/pdo_snowflake.git c:\pdo_snowflake
+      #  shell: cmd
+      
+      #- name: setup php sdk
+      #  run: .\scripts\setup_php_sdk.bat x64 Release VS15 c:\php-sdk
+      #  shell: cmd
+      #  working-directory: c:\pdo_snowflake
+        
+      #- name: setup php
+      #  #uses: shivammathur/setup-php@v2
+      #  #with:
+      #  #  php-version: 7.2
+      #  #  extensions: pdo, json
+      #  run: .\scripts\run_setup_php.bat x64 Release VS15 7.2.24 c:\php-sdk
+      #  shell: cmd
+      #  working-directory:  c:\pdo_snowflake
         
       - name: check php
         run: dir c:\tools\php\ext
