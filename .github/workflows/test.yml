@@ -47,6 +47,11 @@ jobs:
       - name: check php config
         run: type c:\tools\php\php.ini
         shell: cmd
+      
+      - name: check file
+        run: C:\"Program Files (x86)"\"Microsoft Visual Studio"\2017\Enterprise\VC\Tools\MSVC\14.16.27023\bin\Hostx64\x64\dumpbin /dependents c:\tools\php\ext\php_pdo_mysql.dll
+        working-directory:  c:\tools\php
+        shell: cmd
        
       - name: load an extension
         run: c:\tools\php\php.exe -dextension=pdo_mysql -m
