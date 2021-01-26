@@ -34,14 +34,14 @@ jobs:
         shell: cmd
         working-directory: c:\pdo_snowflake
         
-      - name: setup php
+      #- name: setup php
         #uses: shivammathur/setup-php@v2
         #with:
         #  php-version: 7.2
         #  extensions: pdo, json
-        run: .\scripts\run_setup_php.bat x64 Release VS15 7.2.24 c:\php-sdk
-        shell: cmd
-        working-directory:  c:\pdo_snowflake
+      #  run: .\scripts\run_setup_php.bat x64 Release VS15 7.2.24 c:\php-sdk
+      #  shell: cmd
+      #  working-directory:  c:\pdo_snowflake
         
       - name: check php
         run: dir c:\tools\php\
