@@ -90,7 +90,7 @@ jobs:
         shell: cmd
       
       - name: check file
-        run: c:\tools\php\php.exe -dextension=ext\php_pdo_mysql.dll -m
+        run: dumpbin /dependents c:\tools\php\ext\php_pdo_snowflake.dll
         working-directory:  c:\tools\php
          
       - name: check file
