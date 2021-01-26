@@ -24,6 +24,8 @@ jobs:
         with:
           php-version: 7.2
           extensions: pdo, json
+        env:
+          phpts: ts
 
       - name: get source
         run: git clone https://github.com/snowflakedb/pdo_snowflake.git c:\pdo_snowflake
