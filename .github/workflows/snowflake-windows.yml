@@ -89,12 +89,12 @@ jobs:
         run: type c:\tools\php\php.ini
         shell: cmd
       
-      #- name: check file
-      #  run: dumpbin /dependents c:\tools\php\ext\php_pdo_snowflake.dll
-      #  working-directory:  c:\tools\php
-      #  shell: cmd
+      - name: check file
+        run: C:\"Program Files (x86)"\"Microsoft Visual Studio"\2017\Enterprise\VC\Tools\MSVC\14.16.27023\bin\Hostx64\x64\dumpbin /dependents c:\tools\php\ext\php_pdo_snowflake.dll
+        working-directory:  c:\tools\php
+        shell: cmd
          
       - name: check file
         run: c:\tools\php\php.exe -dextension=php_pdo_snowflake.dll -m
-        working-directory:  c:\tools\php\ext
+        working-directory:  c:\tools\php
         shell: cmd
