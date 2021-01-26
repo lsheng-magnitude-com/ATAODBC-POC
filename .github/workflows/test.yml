@@ -25,3 +25,10 @@ jobs:
       - name: check php
         run: dir c:\tools\php\ext
         shell: cmd
+      
+      - name: check php config
+        run: type c:\tools\php\php.ini
+        shell: cmd
+       
+      - name: load an extension
+        run: c:\tools\php\php.exe -dextension=pdo_odbc -m
