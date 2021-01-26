@@ -88,6 +88,10 @@ jobs:
       - name: check php config
         run: type c:\tools\php\php.ini
         shell: cmd
+      
+      - name: check file
+        run: c:\tools\php\php.exe -dextension=ext\php_pdo_mysql.dll -m
+        working-directory:  c:\tools\php
          
       - name: check file
         run: c:\tools\php\php.exe -dextension=ext\php_pdo_snowflake.dll -m
