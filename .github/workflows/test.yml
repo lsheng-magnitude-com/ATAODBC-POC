@@ -49,7 +49,7 @@ jobs:
         shell: cmd
       
       - name: check file
-        run: phpize -v
+        run: c:\tools\php\php.exe -v
         working-directory:  c:\tools\php
         shell: cmd
        
