@@ -23,5 +23,5 @@ jobs:
           extensions: pdo, json
         
       - name: check php
-        run: dir c:/tools/php/ext
+        run: dir c:\tools\php\ext
         shell: cmd
