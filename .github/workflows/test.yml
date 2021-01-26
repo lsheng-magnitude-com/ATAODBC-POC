@@ -49,7 +49,7 @@ jobs:
         shell: cmd
       
       - name: check file
-        run: C:\"Program Files (x86)"\"Microsoft Visual Studio"\2017\Enterprise\VC\Tools\MSVC\14.16.27023\bin\Hostx64\x64\dumpbin /dependents c:\tools\php\ext\php_pdo_mysql.dll
+        run: phpize -v
         working-directory:  c:\tools\php
         shell: cmd
        
