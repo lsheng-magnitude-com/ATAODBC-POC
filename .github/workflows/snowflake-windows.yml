@@ -91,17 +91,17 @@ jobs:
         shell: cmd
         working-directory:  c:\pdo_snowflake
   
-      - name: copy php ini
-        run: xcopy .\php.ini c:\tools\php\ /I/Y/F
-        shell: cmd
+      #- name: copy php ini
+      #  run: xcopy .\php.ini c:\tools\php\ /I/Y/F
+      #  shell: cmd
         
       - name: check php
         run: dir c:\tools\php /S
         shell: cmd
       
-      #- name: check php config
-      #  run: type c:\tools\php\php.ini
-      #  shell: cmd
+      - name: check php config
+        run: type c:\tools\php\php.ini
+        shell: cmd
       
       - name: check file
         run: C:\"Program Files (x86)"\"Microsoft Visual Studio"\2017\Enterprise\VC\Tools\MSVC\14.16.27023\bin\Hostx64\x64\dumpbin /dependents c:\tools\php\ext\php_pdo_snowflake.dll
