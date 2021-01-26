@@ -92,7 +92,9 @@ jobs:
       - name: check file
         run: dumpbin /dependents c:\tools\php\ext\php_pdo_snowflake.dll
         working-directory:  c:\tools\php
+        shell: cmd
          
       - name: check file
         run: c:\tools\php\php.exe -dextension=ext\php_pdo_snowflake.dll -m
         working-directory:  c:\tools\php
+        shell: cmd
