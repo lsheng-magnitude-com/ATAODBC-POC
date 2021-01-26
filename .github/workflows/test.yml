@@ -44,7 +44,7 @@ jobs:
       #  working-directory:  c:\pdo_snowflake
         
       - name: check php
-        run: dir c:\tools\php\ext
+        run: dir c:\tools\php\
         shell: cmd
       
       - name: check php config
