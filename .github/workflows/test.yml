@@ -32,3 +32,4 @@ jobs:
        
       - name: load an extension
         run: c:\tools\php\php.exe -dextension=pdo_odbc -m
+        shell: cmd
