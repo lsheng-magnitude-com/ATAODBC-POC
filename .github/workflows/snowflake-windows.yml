@@ -61,9 +61,9 @@ jobs:
         shell: cmd
         working-directory: c:\pdo_snowflake
         
-      - name: copy scripts
-        run: xcopy .\setup_php.bat c:\pdo_snowflake\scripts\ /I/Y/F
-        shell: cmd
+      #- name: copy scripts
+      #  run: xcopy .\setup_php.bat c:\pdo_snowflake\scripts\ /I/Y/F
+      #  shell: cmd
         
       - name: setup php
         #uses: shivammathur/setup-php@v2
@@ -91,11 +91,6 @@ jobs:
         run: xcopy c:\php-sdk\phpmaster\vc15\x64\php-src\x64\Release_TS\php_pdo_snowflake.dll c:\tools\php\ext\ /I/Y/F
         shell: cmd
         working-directory:  c:\pdo_snowflake
-      
-      #- name: copy driver
-      #  run: xcopy c:\php-sdk\phpmaster\vc15\x64\php-src\x64\Release_TS\php7ts.dll c:\tools\php\ /I/Y/F
-      #  shell: cmd
-      #  working-directory:  c:\pdo_snowflake
   
       #- name: copy php ini
       #  run: xcopy .\php.ini c:\tools\php\ /I/Y/F
