@@ -18,5 +18,5 @@ jobs:
     steps:
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: dir "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Tools\MSVC" /S
+        run: C:\"Program Files (x86)"\"Microsoft Visual Studio"\2017\Enterprise\VC\Tools\MSVC\14.16.27023\bin\Hostx64\x64\dumpbin
         shell: cmd
