@@ -33,6 +33,6 @@ jobs:
             export RUN_COVERAGE=1
             export PHP_HOME=/usr/local
             which php
-            pwd
-            ./scripts/build_pdo_snowflake.sh
+            ls
+            ./pdo_snowflake/scripts/build_pdo_snowflake.sh
             $PHP_HOME/bin/php -dextension=modules/pdo_snowflake.so -m | grep pdo_snowflake
