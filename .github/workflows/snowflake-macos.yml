@@ -22,17 +22,20 @@ jobs:
           with:
             php-version: 7.2
             extensions: pdo, json
+        
+        - name: check env
+          run: which php
             
-        - name: get source
-          run: git clone https://github.com/snowflakedb/pdo_snowflake.git /usr/pdo_snowflake
+        #- name: get source
+        #  run: git clone https://github.com/snowflakedb/pdo_snowflake.git /usr/pdo_snowflake
         
         # Runs a single command using the runners shell
-        - name: Build PDO Driver
-          run: |
-            export RUN_COVERAGE=1
-            export PHP_HOME=/usr
-            which php
-            pwd
-            ./scripts/build_pdo_snowflake.sh
-            $PHP_HOME/bin/php -dextension=modules/pdo_snowflake.so -m | grep pdo_snowflake
-          working-directory: /usr/pdo_snowflake
+        #- name: Build PDO Driver
+        #  run: |
+        #    export RUN_COVERAGE=1
+        #    export PHP_HOME=/usr
+        #    which php
+        #    pwd
+        #    ./scripts/build_pdo_snowflake.sh
+        #    $PHP_HOME/bin/php -dextension=modules/pdo_snowflake.so -m | grep pdo_snowflake
+        #  working-directory: /usr/pdo_snowflake
