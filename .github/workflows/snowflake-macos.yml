@@ -24,7 +24,7 @@ jobs:
             extensions: pdo, json
         
         - name: check php
-          run: find /usr/local/lib/php/pecl/20170718/ -ls
+          run: ls -R /usr/local/lib/php/pecl/20170718/
           
         #- name: get source
         #  run: git clone https://github.com/snowflakedb/pdo_snowflake.git
