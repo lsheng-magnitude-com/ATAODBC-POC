@@ -32,6 +32,7 @@ jobs:
           run: |
             ls /etc/php/7.2/fpm          
             /usr/bin/php -i | grep '^extension_dir'
+            ls /usr/lib/php/20170718/
             
           
         - name: build driver
@@ -45,8 +46,8 @@ jobs:
           
         - name: setup driver
           run: |
-            cp ./modules/pdo_snowflake.so /usr/lib/php/20170718/
-            cp ./libsnowflakeclient/cacert.pem /etc/php/7.2/fpm/
+            cp -f ./modules/pdo_snowflake.so /usr/lib/php/20170718/
+            cp -f ./libsnowflakeclient/cacert.pem /etc/php/7.2/fpm/
             ls /usr/lib/php/20170718/
             ls /etc/php/7.2/fpm/
           working-directory: /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake
