@@ -34,10 +34,19 @@ jobs:
             /usr/bin/php -i | grep '^extension_dir'
             
           
-        - name: Build PDO Driver
+        - name: build driver
           run: |
             export RUN_COVERAGE=1
             export PHP_HOME=/usr
             ./scripts/build_pdo_snowflake.sh
             $PHP_HOME/bin/php -dextension=modules/pdo_snowflake.so -m | grep pdo_snowflake
+          working-directory: /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake
+          
+          
+        - name: setup driver
+          run: |
+            cp ./modules/pdo_snowflake.so /usr/lib/php/20170718/
+            cp ./libsnowflakeclient/cacert.pem /etc/php/7.2/fpm/
+            ls /usr/lib/php/20170718/
+            ls /etc/php/7.2/fpm/
           working-directory: /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake
