@@ -27,20 +27,17 @@ jobs:
         - name: get source
           run: git clone https://github.com/snowflakedb/pdo_snowflake.git
         
-        - name: check pwd
-          run: pwd
-        
         
         - name: check env
-          run: ls /etc/php/7.2/fpm          
-          
+          run: |
+            ls /etc/php/7.2/fpm          
+            /usr/bin/php -i | grep '^extension_dir'
+            
           
         - name: Build PDO Driver
           run: |
             export RUN_COVERAGE=1
             export PHP_HOME=/usr
-            which php
-            ls
             ./scripts/build_pdo_snowflake.sh
             $PHP_HOME/bin/php -dextension=modules/pdo_snowflake.so -m | grep pdo_snowflake
           working-directory: /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake
