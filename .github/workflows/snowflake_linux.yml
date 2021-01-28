@@ -26,7 +26,9 @@ jobs:
         - name: get source
           run: git clone https://github.com/snowflakedb/pdo_snowflake.git
         
-        
+        - name: check pwd
+          run: pwd
+          
         - name: Build PDO Driver
           run: |
             export RUN_COVERAGE=1
