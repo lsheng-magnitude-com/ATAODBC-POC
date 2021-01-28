@@ -37,4 +37,4 @@ jobs:
             ls
             ./scripts/build_pdo_snowflake.sh
             $PHP_HOME/bin/php -dextension=modules/pdo_snowflake.so -m | grep pdo_snowflake
-          working-directory: /Users/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake
+          working-directory: /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake
