@@ -28,7 +28,10 @@ jobs:
         
         - name: check pwd
           run: pwd
-          
+        
+        - name: check env
+          run: ls /etc/php/7.2/fpm
+            
         - name: Build PDO Driver
           run: |
             export RUN_COVERAGE=1
