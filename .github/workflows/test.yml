@@ -18,6 +18,6 @@ jobs:
     steps:
       - name: test
         env: 
-          TEST_SECRETS: ${{ secrets.TEST_SECRETS }}
-        run: echo %TEST_SECRETS%
+          USERNAME: ${{ secrets.USERNAME }}
+        run: echo %USERNAME%
           
