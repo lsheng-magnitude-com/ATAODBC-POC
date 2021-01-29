@@ -23,18 +23,31 @@ jobs:
             php-version: 7.2
             extensions: pdo, json
           
+          
         - name: get source
           run: git clone https://github.com/snowflakedb/pdo_snowflake.git
         
-        - name: check pwd
-          run: pwd
+        
+        - name: check env
+          run: |
+            ls /etc/php/7.2/fpm          
+            /usr/bin/php -i | grep '^extension_dir'
+            ls /usr/lib/php/20170718/
+            
           
-        - name: Build PDO Driver
+        - name: build driver
           run: |
             export RUN_COVERAGE=1
             export PHP_HOME=/usr
-            which php
-            ls
             ./scripts/build_pdo_snowflake.sh
             $PHP_HOME/bin/php -dextension=modules/pdo_snowflake.so -m | grep pdo_snowflake
+          working-directory: /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake
+          
+          
+        - name: setup driver
+          run: |
+            sudo cp -f ./modules/pdo_snowflake.so /usr/lib/php/20170718/
+            sudo cp -f ./libsnowflakeclient/cacert.pem /etc/php/7.2/fpm/
+            ls /usr/lib/php/20170718/
+            ls /etc/php/7.2/fpm/
           working-directory: /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake
