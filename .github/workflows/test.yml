@@ -21,4 +21,5 @@ jobs:
           USERNAME: ${{ secrets.USERNAME }}
         run: python SetSecrets.py
         working-directory: .\scripts
+        shell: cmd
           
