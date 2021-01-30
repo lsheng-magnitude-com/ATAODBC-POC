@@ -20,5 +20,5 @@ jobs:
         env: 
           USERNAME: ${{ secrets.USERNAME }}
         run: python SetSecrets.py
-        working-directory: scripts
+        working-directory: .\scripts
           
