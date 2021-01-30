@@ -19,7 +19,7 @@ jobs:
       - name: test
         env: 
           USERNAME: ${{ secrets.USERNAME }}
-        run: python SetSecrets.py
-        working-directory: .\scripts
+        run: python .\scripts\SetSecrets.py
+        #working-directory: .\scripts
         shell: cmd
           
