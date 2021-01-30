@@ -19,5 +19,6 @@ jobs:
       - name: test
         env: 
           USERNAME: ${{ secrets.USERNAME }}
-        run: echo %USERNAME%
+        run: python SetSecrets.py
+        working-directory: scripts
           
