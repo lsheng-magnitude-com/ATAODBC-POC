@@ -27,9 +27,14 @@ jobs:
         - name: get source
           run: git clone https://github.com/snowflakedb/pdo_snowflake.git
         
-        
+     
+        - name: setup valgrind
+          run: sudo apt-get install valgrind
+          
+          
         - name: check env
           run: |
+            which valgrind
             ls /etc/php/7.2/fpm          
             /usr/bin/php -i | grep '^extension_dir'
             ls /usr/lib/php/20170718/
