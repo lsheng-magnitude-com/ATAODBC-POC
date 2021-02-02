@@ -33,6 +33,8 @@ jobs:
             ls /etc/php/7.2/fpm          
             /usr/bin/php -i | grep '^extension_dir'
             ls /usr/lib/php/20170718/
+            pwd
+            ls
             
           
         - name: build driver
