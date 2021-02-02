@@ -48,11 +48,11 @@ jobs:
           run: |
             sudo cp -f ./modules/pdo_snowflake.so /usr/lib/php/20170718/
             sudo cp -f ./libsnowflakeclient/cacert.pem /etc/php/7.2/fpm/
-            sudo cp -f ./config/20-pdo_snowflake.ini /etc/php/7.2/fpm/
+            sudo cp -f ../config/20-pdo_snowflake.ini /etc/php/7.2/fpm/
             ls /usr/lib/php/20170718/
             ls /etc/php/7.2/fpm/
-            cp ./config/parameters.json ./
-            python ./scripts/set_secrets.py ./parameters.json
+            cp ../config/parameters.json ./
+            python ../scripts/set_secrets.py ./parameters.json
           working-directory: /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake
         
         
