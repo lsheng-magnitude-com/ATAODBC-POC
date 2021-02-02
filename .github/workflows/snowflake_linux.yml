@@ -48,6 +48,7 @@ jobs:
           
         - name: setup driver
           run: |
+            export PHP_HOME=/usr
             sudo cp -f ./modules/pdo_snowflake.so /usr/lib/php/20170718/
             sudo cp -f ./libsnowflakeclient/cacert.pem /etc/php/7.2/fpm/
             sudo cp -f ../config/20-pdo_snowflake.ini /etc/php/7.2/fpm/
