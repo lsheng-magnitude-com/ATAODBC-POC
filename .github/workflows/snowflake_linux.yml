@@ -28,9 +28,9 @@ jobs:
           run: git clone https://github.com/snowflakedb/pdo_snowflake.git
         
      
-        - name: setup tools
-          run: |
-            sudo apt-get install valgrind
+        #- name: setup tools
+        #  run: |
+        #    sudo apt-get install valgrind
           
           
         - name: check env
@@ -79,8 +79,8 @@ jobs:
           run: |
             export RUN_COVERAGE=1
             export PHP_HOME=/usr
-            export PATH=$/usr/lib/php/20170718/:$PHP_HOME/bin:$PATH
-            export LD_LIBRARY_PATH=$/usr/lib/php/20170718/:$PHP_HOME/bin:$LD_LIBRARY_PATH
+            # export PATH=$/usr/lib/php/20170718/:$PHP_HOME/bin:$PATH
+            # export LD_LIBRARY_PATH=$/usr/lib/php/20170718/:$PHP_HOME/bin:$LD_LIBRARY_PATH
             cp ../config/parameters.json ./
             python ../scripts/set_secrets.py ./parameters.json
             ./scripts/env.sh && env | grep SNOWFLAKE_TEST > testenv.ini
