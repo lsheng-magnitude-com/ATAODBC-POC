@@ -77,6 +77,7 @@ jobs:
             cp ../config/parameters.json ./
             python ../scripts/set_secrets.py ./parameters.json
             ./scripts/env.sh && env | grep SNOWFLAKE_TEST > testenv.ini
-            REPORT_EXIT_STATUS=1 NO_INTERACTION=true make test
+            #REPORT_EXIT_STATUS=1 NO_INTERACTION=true make test
+            valgrind --leak-check=full $PHP_HOME/bin/php -dextension=modules/pdo_snowflake.so tests/selectnum.phpt
           working-directory: /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake
          
