@@ -51,4 +51,5 @@ jobs:
             sudo cp -f ./config/20-pdo_snowflake.ini /etc/php/7.2/fpm/
             ls /usr/lib/php/20170718/
             ls /etc/php/7.2/fpm/
+            cp ./config/parameters.json ./
           working-directory: /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake
