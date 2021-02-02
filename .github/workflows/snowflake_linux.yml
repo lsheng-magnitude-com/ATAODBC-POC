@@ -28,8 +28,10 @@ jobs:
           run: git clone https://github.com/snowflakedb/pdo_snowflake.git
         
      
-        - name: setup valgrind
-          run: sudo apt-get install valgrind
+        - name: setup tools
+          run: |
+            sudo apt-get install valgrind
+            sudo apt-get install ca-certificates
           
           
         - name: check env
