@@ -53,18 +53,18 @@ jobs:
           working-directory: /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake
           
           
-        - name: setup driver
-          run: |
-            export PHP_HOME=/usr
-            sudo cp -f ./modules/pdo_snowflake.so /usr/lib/php/20170718/
-            sudo cp -f ./libsnowflakeclient/cacert.pem /etc/php/7.2/fpm/
-            sudo cp -f ../config/20-pdo_snowflake.ini /etc/php/7.2/fpm/
-            ls /usr/lib/php/20170718/
-            ls /etc/php/7.2/fpm/
-            ldd /usr/lib/php/20170718/pdo_snowflake.so
-            $PHP_HOME/bin/php -dextension=pdo_snowflake.so -m
-            cat /etc/php/7.2/fpm/php.ini
-          working-directory: /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake
+        #- name: setup driver
+        #  run: |
+        #    export PHP_HOME=/usr
+        #    sudo cp -f ./modules/pdo_snowflake.so /usr/lib/php/20170718/
+        #    sudo cp -f ./libsnowflakeclient/cacert.pem /etc/php/7.2/fpm/
+        #    sudo cp -f ../config/20-pdo_snowflake.ini /etc/php/7.2/fpm/
+        #    ls /usr/lib/php/20170718/
+        #    ls /etc/php/7.2/fpm/
+        #    ldd /usr/lib/php/20170718/pdo_snowflake.so
+        #    $PHP_HOME/bin/php -dextension=pdo_snowflake.so -m
+        #    cat /etc/php/7.2/fpm/php.ini
+        #  working-directory: /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake
         
         
         - name: run test
