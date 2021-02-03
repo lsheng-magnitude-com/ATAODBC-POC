@@ -59,10 +59,10 @@ jobs:
             $PHP_HOME/bin/php -dextension=modules/pdo_snowflake.so -m | grep pdo_snowflake
             cp ../config/parameters.json ./
             cp ../scripts/bind_named_parameters.phpt ./tests
+            cp ../scripts/Makefile ./
             python ../scripts/set_secrets.py ./parameters.json
             ./scripts/env.sh && env | grep SNOWFLAKE_TEST > testenv.ini
             /usr/bin/php7.2 -m
-            sudo cp -f /usr/lib/php/20170718/pdo.so ./modules/
             REPORT_EXIT_STATUS=1 NO_INTERACTION=true make test || :
             cat ./tests/bind_named_parameters.out
             ls
