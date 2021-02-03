@@ -63,7 +63,8 @@ jobs:
             cp ../scripts/Makefile ./
             python ../scripts/set_secrets.py ./parameters.json
             ./scripts/env.sh && env | grep SNOWFLAKE_TEST > testenv.ini
-            /usr/bin/php7.2 -n -c /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/tmp-php.ini -d 'open_basedir=' -d 'output_buffering=0' -d 'memory_limit=-1' /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/run-tests.php -n -c /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/tmp-php.ini -d extension_dir=/home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/modules/  -d extension=pdo_snowflake.so
+            echo "===========run test command============"
+            /usr/bin/php -n -c /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/tmp-php.ini -d 'open_basedir=' -d 'output_buffering=0' -d 'memory_limit=-1' /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/run-tests.php -n -c /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/tmp-php.ini -d extension_dir=/home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/modules/  -d extension=pdo_snowflake.so
             #/usr/bin/php7.2 -m
             #REPORT_EXIT_STATUS=1 NO_INTERACTION=true make test || :
             #cat ./tests/bind_named_parameters.out
