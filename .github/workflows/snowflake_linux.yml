@@ -59,7 +59,7 @@ jobs:
             ./scripts/build_pdo_snowflake.sh
             $PHP_HOME/bin/php -dextension=modules/pdo_snowflake.so -m | grep pdo_snowflake
             cp ../config/parameters.json ./
-            cp ../scripts/bind_named_parameters.phpt ./tests
+            #cp ../scripts/bind_named_parameters.phpt ./tests
             cp ../scripts/Makefile ./
             python ../scripts/set_secrets.py ./parameters.json
             ./scripts/env.sh && env | grep SNOWFLAKE_TEST > testenv.ini
