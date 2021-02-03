@@ -1,15 +1,15 @@
-srcdir = /bamboo/snowflake/pdo_snowflake
-builddir = /bamboo/snowflake/pdo_snowflake
-top_srcdir = /bamboo/snowflake/pdo_snowflake
-top_builddir = /bamboo/snowflake/pdo_snowflake
-EGREP = /usr/bin/grep -E
-SED = /usr/bin/sed
+srcdir = /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake
+builddir = /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake
+top_srcdir = /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake
+top_builddir = /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake
+EGREP = /bin/grep -E
+SED = /bin/sed
 CONFIGURE_COMMAND = './configure' '--enable-pdo_snowflake'
 CONFIGURE_OPTIONS = '--enable-pdo_snowflake'
 SHLIB_SUFFIX_NAME = so
 SHLIB_DL_SUFFIX_NAME = so
 ZEND_EXT_TYPE = zend_extension
-RE2C = re2c
+RE2C = exit 0;
 AWK = gawk
 shared_objects_pdo_snowflake = pdo_snowflake.lo snowflake_driver.lo snowflake_stmt.lo snowflake_paramstore.lo snowflake_arraylist.lo snowflake_treemap.lo snowflake_rbtree.lo
 PHP_PECL_EXTENSION = pdo_snowflake
@@ -17,12 +17,12 @@ PHP_MODULES = $(phplibdir)/pdo_snowflake.la
 PHP_ZEND_EX =
 all_targets = $(PHP_MODULES) $(PHP_ZEND_EX)
 install_targets = install-modules install-headers
-prefix = /usr/local/php
+prefix = /usr
 exec_prefix = $(prefix)
 libdir = ${exec_prefix}/lib
-prefix = /usr/local/php
-phplibdir = /bamboo/snowflake/pdo_snowflake/modules
-phpincludedir = /usr/local/php/include/php
+prefix = /usr
+phplibdir = /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/modules
+phpincludedir = /usr/include/php/20170718
 CC = cc
 CFLAGS = -std=c99 -Werror -g -O2
 CFLAGS_CLEAN = $(CFLAGS)
@@ -31,16 +31,16 @@ CPPFLAGS = -DHAVE_CONFIG_H
 CXX =
 CXXFLAGS =
 CXXFLAGS_CLEAN = $(CXXFLAGS)
-EXTENSION_DIR = /usr/local/php/lib/php/extensions/no-debug-non-zts-20170718
-PHP_EXECUTABLE = /usr/local/php/bin/php
+EXTENSION_DIR = /usr/lib/php/20170718
+PHP_EXECUTABLE = /usr/bin/php7.2
 EXTRA_LDFLAGS =
 EXTRA_LIBS =
-INCLUDES = -I/usr/local/php/include/php -I/usr/local/php/include/php/main -I/usr/local/php/include/php/TSRM -I/usr/local/php/include/php/Zend -I/usr/local/php/include/php/ext -I/usr/local/php/include/php/ext/date/lib -I/bamboo/snowflake/pdo_snowflake/libsnowflakeclient/include
+INCLUDES = -I/usr/include/php/20170718 -I/usr/include/php/20170718/main -I/usr/include/php/20170718/TSRM -I/usr/include/php/20170718/Zend -I/usr/include/php/20170718/ext -I/usr/include/php/20170718/ext/date/lib -I/home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/libsnowflakeclient/include
 LFLAGS =
 LDFLAGS = -fPIC -Wl,--whole-archive libsnowflakeclient/lib/linux/libsnowflakeclient.a libsnowflakeclient/deps-build/linux/openssl/lib/libcrypto.a libsnowflakeclient/deps-build/linux/openssl/lib/libssl.a libsnowflakeclient/deps-build/linux/curl/lib/libcurl.a libsnowflakeclient/deps-build/linux/oob/lib/libtelemetry.a libsnowflakeclient/deps-build/linux/aws/lib64/libaws-cpp-sdk-core.a libsnowflakeclient/deps-build/linux/aws/lib64/libaws-cpp-sdk-s3.a libsnowflakeclient/deps-build/linux/azure/lib/libazure-storage-lite.a -Wl,--no-whole-archive
 SHARED_LIBTOOL =
 LIBTOOL = $(SHELL) $(top_builddir)/libtool
-SHELL = /bin/sh
+SHELL = /bin/bash
 INSTALL_HEADERS =
 mkinstalldirs = $(top_srcdir)/build/shtool mkdir -p
 INSTALL = $(top_srcdir)/build/shtool install -c
@@ -146,6 +146,7 @@ test: all
 		TEST_PHP_SRCDIR=$(top_srcdir) \
 		CC="$(CC)" \
 			$(PHP_EXECUTABLE) -n -c $(top_builddir)/tmp-php.ini $(PHP_TEST_SETTINGS) $(top_srcdir)/run-tests.php -n -c $(top_builddir)/tmp-php.ini -d extension_dir=$(top_builddir)/modules/ $(PHP_TEST_SHARED_EXTENSIONS) $(TESTS); \
+        echo "$(PHP_EXECUTABLE) -n -c $(top_builddir)/tmp-php.ini $(PHP_TEST_SETTINGS) $(top_srcdir)/run-tests.php -n -c $(top_builddir)/tmp-php.ini -d extension_dir=$(top_builddir)/modules/ $(PHP_TEST_SHARED_EXTENSIONS) $(TESTS);"; \
 		TEST_RESULT_EXIT_CODE=$$?; \
 		rm $(top_builddir)/tmp-php.ini; \
 		exit $$TEST_RESULT_EXIT_CODE; \
@@ -165,7 +166,7 @@ distclean: clean
 	rm -f Makefile config.cache config.log config.status Makefile.objects Makefile.fragments libtool main/php_config.h main/internal_functions_cli.c main/internal_functions.c stamp-h buildmk.stamp Zend/zend_dtrace_gen.h Zend/zend_dtrace_gen.h.bak Zend/zend_config.h TSRM/tsrm_config.h
 	rm -f php7.spec main/build-defs.h scripts/phpize
 	rm -f ext/date/lib/timelib_config.h ext/mbstring/oniguruma/config.h ext/mbstring/libmbfl/config.h ext/oci8/oci8_dtrace_gen.h ext/oci8/oci8_dtrace_gen.h.bak
-	rm -f scripts/man1/phpize.1 scripts/php-config scripts/man1/php-config.1 sapi/cli/php.1 sapi/cgi/php-cgi.1 ext/phar/phar.1 ext/phar/phar.phar.1
+	rm -f scripts/man1/phpize.1 scripts/php-config scripts/man1/php-config.1 sapi/cli/php.1 sapi/cgi/php-cgi.1 sapi/phpdbg/phpdbg.1 ext/phar/phar.1 ext/phar/phar.phar.1
 	rm -f sapi/fpm/php-fpm.conf sapi/fpm/init.d.php-fpm sapi/fpm/php-fpm.service sapi/fpm/php-fpm.8 sapi/fpm/status.html
 	rm -f ext/iconv/php_have_bsd_iconv.h ext/iconv/php_have_glibc_iconv.h ext/iconv/php_have_ibm_iconv.h ext/iconv/php_have_iconv.h ext/iconv/php_have_libiconv.h ext/iconv/php_iconv_aliased_libiconv.h ext/iconv/php_iconv_supports_errno.h ext/iconv/php_php_iconv_h_path.h ext/iconv/php_php_iconv_impl.h
 	rm -f ext/phar/phar.phar ext/phar/phar.php
@@ -189,23 +190,22 @@ prof-use:
 
 .PHONY: all clean install distclean test prof-gen prof-clean prof-use
 .NOEXPORT:
-pdo_snowflake.lo: /bamboo/snowflake/pdo_snowflake/pdo_snowflake.c
-	$(LIBTOOL) --mode=compile $(CC) -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1 -I. -I/bamboo/snowflake/pdo_snowflake $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /bamboo/snowflake/pdo_snowflake/pdo_snowflake.c -o pdo_snowflake.lo 
-snowflake_driver.lo: /bamboo/snowflake/pdo_snowflake/snowflake_driver.c
-	$(LIBTOOL) --mode=compile $(CC) -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1 -I. -I/bamboo/snowflake/pdo_snowflake $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /bamboo/snowflake/pdo_snowflake/snowflake_driver.c -o snowflake_driver.lo 
-snowflake_stmt.lo: /bamboo/snowflake/pdo_snowflake/snowflake_stmt.c
-	$(LIBTOOL) --mode=compile $(CC) -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1 -I. -I/bamboo/snowflake/pdo_snowflake $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /bamboo/snowflake/pdo_snowflake/snowflake_stmt.c -o snowflake_stmt.lo 
-snowflake_paramstore.lo: /bamboo/snowflake/pdo_snowflake/snowflake_paramstore.c
-	$(LIBTOOL) --mode=compile $(CC) -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1 -I. -I/bamboo/snowflake/pdo_snowflake $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /bamboo/snowflake/pdo_snowflake/snowflake_paramstore.c -o snowflake_paramstore.lo 
-snowflake_arraylist.lo: /bamboo/snowflake/pdo_snowflake/snowflake_arraylist.c
-	$(LIBTOOL) --mode=compile $(CC) -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1 -I. -I/bamboo/snowflake/pdo_snowflake $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /bamboo/snowflake/pdo_snowflake/snowflake_arraylist.c -o snowflake_arraylist.lo 
-snowflake_treemap.lo: /bamboo/snowflake/pdo_snowflake/snowflake_treemap.c
-	$(LIBTOOL) --mode=compile $(CC) -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1 -I. -I/bamboo/snowflake/pdo_snowflake $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /bamboo/snowflake/pdo_snowflake/snowflake_treemap.c -o snowflake_treemap.lo 
-snowflake_rbtree.lo: /bamboo/snowflake/pdo_snowflake/snowflake_rbtree.c
-	$(LIBTOOL) --mode=compile $(CC) -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1 -I. -I/bamboo/snowflake/pdo_snowflake $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /bamboo/snowflake/pdo_snowflake/snowflake_rbtree.c -o snowflake_rbtree.lo 
+pdo_snowflake.lo: /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/pdo_snowflake.c
+	$(LIBTOOL) --mode=compile $(CC) -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1 -I. -I/home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/pdo_snowflake.c -o pdo_snowflake.lo 
+snowflake_driver.lo: /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/snowflake_driver.c
+	$(LIBTOOL) --mode=compile $(CC) -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1 -I. -I/home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/snowflake_driver.c -o snowflake_driver.lo 
+snowflake_stmt.lo: /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/snowflake_stmt.c
+	$(LIBTOOL) --mode=compile $(CC) -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1 -I. -I/home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/snowflake_stmt.c -o snowflake_stmt.lo 
+snowflake_paramstore.lo: /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/snowflake_paramstore.c
+	$(LIBTOOL) --mode=compile $(CC) -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1 -I. -I/home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/snowflake_paramstore.c -o snowflake_paramstore.lo 
+snowflake_arraylist.lo: /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/snowflake_arraylist.c
+	$(LIBTOOL) --mode=compile $(CC) -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1 -I. -I/home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/snowflake_arraylist.c -o snowflake_arraylist.lo 
+snowflake_treemap.lo: /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/snowflake_treemap.c
+	$(LIBTOOL) --mode=compile $(CC) -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1 -I. -I/home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/snowflake_treemap.c -o snowflake_treemap.lo 
+snowflake_rbtree.lo: /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/snowflake_rbtree.c
+	$(LIBTOOL) --mode=compile $(CC) -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1 -I. -I/home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/snowflake_rbtree.c -o snowflake_rbtree.lo 
 $(phplibdir)/pdo_snowflake.la: ./pdo_snowflake.la
 	$(LIBTOOL) --mode=install cp ./pdo_snowflake.la $(phplibdir)
 
 ./pdo_snowflake.la: $(shared_objects_pdo_snowflake) $(PDO_SNOWFLAKE_SHARED_DEPENDENCIES)
-	$(LIBTOOL) --mode=link $(CC) $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(LDFLAGS) -o $@ -export-dynamic -avoid-version -prefer-pic -module -rpath $(phplibdir) $(EXTRA_LDFLAGS) $(shared_objects_pdo_snowflake) $(PDO_SNOWFLAKE_SHARED_LIBADD)
-
+	$(LIBTOOL) --mode=link $(CC) $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(LDFLAGS)  -o $@ -export-dynamic -avoid-version -prefer-pic -module -rpath $(phplibdir) $(EXTRA_LDFLAGS) $(shared_objects_pdo_snowflake) $(PDO_SNOWFLAKE_SHARED_LIBADD)
