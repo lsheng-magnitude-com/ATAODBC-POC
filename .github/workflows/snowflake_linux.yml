@@ -28,9 +28,9 @@ jobs:
           run: git clone https://github.com/snowflakedb/pdo_snowflake.git
         
      
-        - name: setup tools
-          run: |
-            sudo apt-get install valgrind
+        #- name: setup tools
+        #  run: |
+        #    sudo apt-get install valgrind
           
           
         - name: check env
@@ -66,9 +66,9 @@ jobs:
             echo "===========run test command============"
             #/usr/bin/php -n -c /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/tmp-php.ini -d 'open_basedir=' -d 'output_buffering=0' -d 'memory_limit=-1' /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/run-tests.php -n -c /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/tmp-php.ini -d extension_dir=/home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/modules/  -d extension=pdo_snowflake.so
             #/usr/bin/php -d extension_dir=/home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/modules/  -d extension=pdo_snowflake.so -m
-            /usr/bin/php -d 'open_basedir=' -d 'output_buffering=0' -d 'memory_limit=-1' /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/run-tests.php -d extension=modules/pdo_snowflake.so -m
+            #/usr/bin/php -d 'open_basedir=' -d 'output_buffering=0' -d 'memory_limit=-1' /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/run-tests.php -d extension=modules/pdo_snowflake.so -m
             #/usr/bin/php7.2 -m
-            #REPORT_EXIT_STATUS=1 NO_INTERACTION=true make test || :
+            REPORT_EXIT_STATUS=1 NO_INTERACTION=true make test || :
             #cat ./tests/bind_named_parameters.out
             #ls
             #cat Makefile
