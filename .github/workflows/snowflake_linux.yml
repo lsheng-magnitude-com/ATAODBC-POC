@@ -62,6 +62,7 @@ jobs:
             python ../scripts/set_secrets.py ./parameters.json
             ./scripts/env.sh && env | grep SNOWFLAKE_TEST > testenv.ini
             /usr/bin/php7.2 -m
+            sudo cp -f /usr/lib/php/20170718/pdo.so ./modules/
             REPORT_EXIT_STATUS=1 NO_INTERACTION=true make test || :
             cat ./tests/bind_named_parameters.out
             ls
