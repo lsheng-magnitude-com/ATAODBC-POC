@@ -12,16 +12,20 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: windows-2016
+    runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v2
+      - name: setup php
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.2
+          extensions: pdo, json
         
       - name: test
         env: 
           USERNAME: ${{ secrets.USERNAME }}
-        run: python .\scripts\SetSecrets.py
-        #working-directory: .\scripts
-        shell: cmd
+        run: |
+          /usr/bin/php7.2 -v
+          /usr/bin/php -v
           
