@@ -55,6 +55,7 @@ jobs:
           run: |
             export RUN_COVERAGE=1
             export PHP_HOME=/usr
+            export TEST_PHP_EXECUTABLE=/usr/bin/php
             ./scripts/build_pdo_snowflake.sh
             $PHP_HOME/bin/php -dextension=modules/pdo_snowflake.so -m | grep pdo_snowflake
             cp ../config/parameters.json ./
