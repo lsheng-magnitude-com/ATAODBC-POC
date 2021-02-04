@@ -60,7 +60,6 @@ jobs:
             ./scripts/build_pdo_snowflake.sh
             $PHP_HOME/bin/php -dextension=modules/pdo_snowflake.so -m | grep pdo_snowflake
             cp ../config/parameters.json ./
-            #cp ../scripts/bind_named_parameters.phpt ./tests
             cp ../scripts/Makefile ./
             python ../scripts/set_secrets.py ./parameters.json
             ./scripts/env.sh && env | grep SNOWFLAKE_TEST > testenv.ini
@@ -71,10 +70,7 @@ jobs:
             #/usr/bin/php7.2 -m
             REPORT_EXIT_STATUS=1 NO_INTERACTION=true make test || :
             echo "===========show test result============"
-            cat ./tests/bind_named_parameters.out
-            cat ./tests/bind_named_parameters.log
-            #ls
-            #cat Makefile
+            python ../scripts/check_result.py ./tests
           working-directory: /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake
           
           
