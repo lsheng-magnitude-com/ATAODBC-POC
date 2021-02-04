@@ -113,6 +113,16 @@ jobs:
         shell: cmd
       
       
+      - name: search php test
+        run: dir c:\php-sdk /s
+        shell: cmd
+      
+      
+      - name: search php test
+        run: dir c:\pdo_snowflake /s
+        shell: cmd
+        
+ 
       - name: setup test
         env: 
             SNOWFLAKE_TEST_USER: ${{ secrets.SNOWFLAKE_TEST_USER }}
