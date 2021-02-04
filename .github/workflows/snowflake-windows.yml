@@ -166,7 +166,7 @@ jobs:
             TEST_PHP_EXECUTABLE: c:\tools\php\php.exe
         run: |
             echo "==> Run Test"
-            c:\tools\php\php.exe c:\php-sdk\phpmaster\vc15\x64\php-src\run-tests.php c:\pdo_snowflake\tests || ver>null
+            c:\tools\php\php.exe c:\php-sdk\phpmaster\vc15\x64\php-src\run-tests.php c:\pdo_snowflake\tests -dextension=pdo_snowflake || ver>null
             echo "===========parsing test result============"
             python check_result.py .\tests
         shell: cmd
