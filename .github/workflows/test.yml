@@ -25,6 +25,6 @@ jobs:
       - name: test
         env: 
           USERNAME: ${{ secrets.USERNAME }}
-        run: |
-          jq
+        run: jq
+        shell: cmd
           
