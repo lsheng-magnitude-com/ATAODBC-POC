@@ -149,7 +149,7 @@ jobs:
             SNOWFLAKE_TEST_SCHEMA: ${{ secrets.SNOWFLAKE_TEST_SCHEMA }}
             SNOWFLAKE_TEST_ROLE: ${{ secrets.SNOWFLAKE_TEST_ROLE }}
         run: |
-            del c:\pdo_snowflake\tests\selecttz*
+            del c:\pdo_snowflake\tests\selecttz.phpt /q/f
             .\scripts\env.bat
         shell: cmd
         working-directory:  c:\pdo_snowflake
