@@ -50,6 +50,11 @@ jobs:
         run: rmdir c:\pdo_snowflake\libsnowflakeclient\deps-build\darwin /s/q
         shell: cmd
         working-directory: c:\pdo_snowflake
+    
+      - name: remove unnecessary test case for Windows
+        run: del c:\pdo_snowflake\tests\selecttz.phpt /q/f
+        shell: cmd
+        working-directory: c:\pdo_snowflak
         
       - name: check
         run: dir /S
@@ -148,9 +153,7 @@ jobs:
             SNOWFLAKE_TEST_DATABASE: ${{ secrets.SNOWFLAKE_TEST_DATABASE }}
             SNOWFLAKE_TEST_SCHEMA: ${{ secrets.SNOWFLAKE_TEST_SCHEMA }}
             SNOWFLAKE_TEST_ROLE: ${{ secrets.SNOWFLAKE_TEST_ROLE }}
-        run: |
-            del c:\pdo_snowflake\tests\selecttz.phpt /q/f
-            .\scripts\env.bat
+        run: .\scripts\env.bat
         shell: cmd
         working-directory:  c:\pdo_snowflake
         
