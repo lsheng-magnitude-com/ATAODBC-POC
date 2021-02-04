@@ -67,8 +67,8 @@ jobs:
             ./scripts/env.sh && env | grep SNOWFLAKE_TEST > testenv.ini
             echo "===========run test command============"
             #/usr/bin/php -n -c /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/tmp-php.ini -d 'open_basedir=' -d 'output_buffering=0' -d 'memory_limit=-1' /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/run-tests.php -n -c /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/tmp-php.ini -d extension_dir=/home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/modules/  -d extension=pdo_snowflake.so
-            #/usr/bin/php -d 'open_basedir=' -d 'output_buffering=0' -d 'memory_limit=-1' /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/run-tests.php -d extension=modules/pdo_snowflake.so
-            REPORT_EXIT_STATUS=1 NO_INTERACTION=true make test || :
+            /usr/bin/php -d 'open_basedir=' -d 'output_buffering=0' -d 'memory_limit=-1' /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/run-tests.php -d extension=modules/pdo_snowflake.so
+            #REPORT_EXIT_STATUS=1 NO_INTERACTION=true make test || :
             echo "===========parsing test result============"
             python ../scripts/check_result.py ./tests
           working-directory: /home/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake
