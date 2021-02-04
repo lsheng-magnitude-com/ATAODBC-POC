@@ -162,6 +162,7 @@ jobs:
             SNOWFLAKE_TEST_DATABASE: ${{ secrets.SNOWFLAKE_TEST_DATABASE }}
             SNOWFLAKE_TEST_SCHEMA: ${{ secrets.SNOWFLAKE_TEST_SCHEMA }}
             SNOWFLAKE_TEST_ROLE: ${{ secrets.SNOWFLAKE_TEST_ROLE }}
+            TEST_PHP_EXECUTABLE: c:\tools\php\php.exe
         run: |
             echo "==> Run Test"
             c:\tools\php\php.exe c:\php-sdk\phpmaster\vc15\x64\php-src\run-tests.php c:\pdo_snowflake\tests
