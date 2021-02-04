@@ -54,7 +54,7 @@ jobs:
       - name: remove unnecessary test case for Windows
         run: del c:\pdo_snowflake\tests\selecttz.phpt /q/f
         shell: cmd
-        working-directory: c:\pdo_snowflak
+        working-directory: c:\pdo_snowflake
         
       - name: check
         run: dir /S
