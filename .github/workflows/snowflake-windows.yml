@@ -164,7 +164,7 @@ jobs:
             SNOWFLAKE_TEST_ROLE: ${{ secrets.SNOWFLAKE_TEST_ROLE }}
         run: |
             echo "==> Run Test"
-            c:\tools\php\php.exe c:\php-sdk\phpmaster\vc15\x64\php-src\run-test.php c:\pdo_snowflake\tests
+            c:\tools\php\php.exe c:\php-sdk\phpmaster\vc15\x64\php-src\run-tests.php c:\pdo_snowflake\tests
         shell: cmd
         working-directory:  c:\pdo_snowflake
         
