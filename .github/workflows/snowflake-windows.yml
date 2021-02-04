@@ -143,7 +143,8 @@ jobs:
             set RUN_COVERAGE=1
             set TEST_PHP_EXECUTABLE=c:\tools\php\php.exe
             .\scripts\env.bat
-            c:\tools\php\php.exe -d 'open_basedir=' -d 'output_buffering=0' -d 'memory_limit=-1' c:\pdo_snowflake\run-tests.php -d extension=pdo_snowflake
+            echo "==> Run Test"
+            c:\tools\php\php.exe c:\php-sdk\phpmaster\vc15\x64\php-src\run-test.php c:\pdo_snowflake\tests
         shell: cmd
         working-directory:  c:\pdo_snowflake
         
