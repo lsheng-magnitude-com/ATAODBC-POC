@@ -24,13 +24,14 @@ def main(argv):
     resultfiles = read_test_dir(outputdir)
     if not resultfiles:
         print ("=================== all tests pass ===================")
-        return 0
-    for file in resultfiles:
-        print ("===================" + file + "===================")
-        filepath = os.path.join(outputdir, file)
-        f= open(filepath, "r")
-        print (f.read())
-    return -1
+        exit(0)
+    else:
+        for file in resultfiles:
+            print ("===================" + file + "===================")
+            filepath = os.path.join(outputdir, file)
+            f= open(filepath, "r")
+            print (f.read())
+        exit(-1)
 
 
 if __name__ == "__main__":
