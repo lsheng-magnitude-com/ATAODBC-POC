@@ -14,7 +14,18 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: windows-2016
-
+    env:
+      SNOWFLAKE_TEST_USER: ${{ secrets.SNOWFLAKE_TEST_USER }}
+      SNOWFLAKE_TEST_PASSWORD: ${{ secrets.SNOWFLAKE_TEST_PASSWORD }}
+      SNOWFLAKE_TEST_ACCOUNT: ${{ secrets.SNOWFLAKE_TEST_ACCOUNT }}
+      SNOWFLAKE_TEST_WAREHOUSE: ${{ secrets.SNOWFLAKE_TEST_WAREHOUSE }}
+      SNOWFLAKE_TEST_DATABASE: ${{ secrets.SNOWFLAKE_TEST_DATABASE }}
+      SNOWFLAKE_TEST_SCHEMA: ${{ secrets.SNOWFLAKE_TEST_SCHEMA }}
+      SNOWFLAKE_TEST_ROLE: ${{ secrets.SNOWFLAKE_TEST_ROLE }}
+      ARCH: x64
+      TARGET: release
+      VS: VS15
+      PHP: 7.2.34
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v2
@@ -22,157 +33,159 @@ jobs:
       - name: setup php
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.2
+          php-version: 7.2.34
           extensions: pdo, json
         env:
           phpts: ts
+          
+      - name: build driver
+        run: python .\scripts\build_driver.py
+      #- name: get source
+      #  run: git clone https://github.com/snowflakedb/pdo_snowflake.git c:\pdo_snowflake
+      #  shell: cmd
+      
+      #- name: remove 
+      #  run: rmdir c:\pdo_snowflake\libsnowflakeclient\lib\linux /s/q
+      #  shell: cmd
+      #  working-directory: c:\pdo_snowflake
 
-      - name: get source
-        run: git clone https://github.com/snowflakedb/pdo_snowflake.git c:\pdo_snowflake
-        shell: cmd
+      #- name: remove 
+      #  run: rmdir c:\pdo_snowflake\libsnowflakeclient\lib\darwin /s/q
+      #  shell: cmd
+      #  working-directory: c:\pdo_snowflake
       
-      - name: remove 
-        run: rmdir c:\pdo_snowflake\libsnowflakeclient\lib\linux /s/q
-        shell: cmd
-        working-directory: c:\pdo_snowflake
-
-      - name: remove 
-        run: rmdir c:\pdo_snowflake\libsnowflakeclient\lib\darwin /s/q
-        shell: cmd
-        working-directory: c:\pdo_snowflake
+      #- name: remove 
+      #  run: rmdir c:\pdo_snowflake\libsnowflakeclient\deps-build\linux /s/q
+      #  shell: cmd
+      #  working-directory: c:\pdo_snowflake
       
-      - name: remove 
-        run: rmdir c:\pdo_snowflake\libsnowflakeclient\deps-build\linux /s/q
-        shell: cmd
-        working-directory: c:\pdo_snowflake
-      
-      - name: remove 
-        run: rmdir c:\pdo_snowflake\libsnowflakeclient\deps-build\darwin /s/q
-        shell: cmd
-        working-directory: c:\pdo_snowflake
+      #- name: remove 
+      #  run: rmdir c:\pdo_snowflake\libsnowflakeclient\deps-build\darwin /s/q
+      #  shell: cmd
+      #  working-directory: c:\pdo_snowflake
     
-      - name: remove unnecessary test case for Windows
-        run: del c:\pdo_snowflake\tests\selectltz.phpt /q/f 
-        shell: cmd
-        working-directory: c:\pdo_snowflake
+      #- name: remove unnecessary test case for Windows
+      #  run: del c:\pdo_snowflake\tests\selectltz.phpt /q/f 
+      #  shell: cmd
+      #  working-directory: c:\pdo_snowflake
         
-      - name: check
-        run: dir /S
-        shell: cmd
-        working-directory: c:\pdo_snowflake
+      #- name: check
+      #  run: dir /S
+      #  shell: cmd
+      #  working-directory: c:\pdo_snowflake
         
-      - name: setup php sdk
-        run: .\scripts\setup_php_sdk.bat x64 Release VS15 c:\php-sdk
-        shell: cmd
-        working-directory: c:\pdo_snowflake
+      #- name: setup php sdk
+      #  run: .\scripts\setup_php_sdk.bat x64 Release VS15 c:\php-sdk
+      #  shell: cmd
+      #  working-directory: c:\pdo_snowflake
         
       #- name: copy scripts
       #  run: xcopy .\setup_php.bat c:\pdo_snowflake\scripts\ /I/Y/F
       #  shell: cmd
         
-      - name: setup php
-        #uses: shivammathur/setup-php@v2
-        #with:
-        #  php-version: 7.2
-        #  extensions: pdo, json
-        run: .\scripts\run_setup_php.bat x64 Release VS15 7.2.34 c:\php-sdk
-        shell: cmd
-        working-directory:  c:\pdo_snowflake
+      #- name: setup php
+      #  #uses: shivammathur/setup-php@v2
+      #  #with:
+      #  #  php-version: 7.2
+      #  #  extensions: pdo, json
+      #  run: .\scripts\run_setup_php.bat x64 Release VS15 7.2.34 c:\php-sdk
+      #  shell: cmd
+      #  working-directory:  c:\pdo_snowflake
       
-      - name: check env
-        run: set
-        shell: cmd
+      #- name: check env
+      #  run: set
+      #  shell: cmd
       
-      - name: build
-        run: .\scripts\run_build_pdo_snowflake.bat x64 Release VS15 7.2.34 c:\php-sdk
-        shell: cmd
-        working-directory:  c:\pdo_snowflake
+      #- name: build
+      #  run: .\scripts\run_build_pdo_snowflake.bat x64 Release VS15 7.2.34 c:\php-sdk
+      #  shell: cmd
+      #  working-directory:  c:\pdo_snowflake
     
-      - name: check
-        run: dir c:\php-sdk /S
-        shell: cmd
+      #- name: check
+      #  run: dir c:\php-sdk /S
+      #  shell: cmd
         
-      - name: copy driver
-        run: xcopy c:\php-sdk\phpmaster\vc15\x64\php-src\x64\Release_TS\php_pdo_snowflake.dll c:\tools\php\ext\ /I/Y/F
-        shell: cmd
-        working-directory:  c:\pdo_snowflake
+      #- name: copy driver
+      #  run: xcopy c:\php-sdk\phpmaster\vc15\x64\php-src\x64\Release_TS\php_pdo_snowflake.dll c:\tools\php\ext\ /I/Y/F
+      #  shell: cmd
+      #  working-directory:  c:\pdo_snowflake
   
       #- name: copy php ini
       #  run: xcopy .\php.ini c:\tools\php\ /I/Y/F
       #  shell: cmd
         
-      - name: check php
-        run: dir c:\tools\php /S
-        shell: cmd
+      #- name: check php
+      #  run: dir c:\tools\php /S
+      #  shell: cmd
       
-      - name: check php config
-        run: type c:\tools\php\php.ini
-        shell: cmd
+      #- name: check php config
+      #  run: type c:\tools\php\php.ini
+      #  shell: cmd
       
-      - name: check file
-        run: C:\"Program Files (x86)"\"Microsoft Visual Studio"\2017\Enterprise\VC\Tools\MSVC\14.16.27023\bin\Hostx64\x64\dumpbin /dependents c:\tools\php\ext\php_pdo_snowflake.dll
-        shell: cmd
+      #- name: check file
+      #  run: C:\"Program Files (x86)"\"Microsoft Visual Studio"\2017\Enterprise\VC\Tools\MSVC\14.16.27023\bin\Hostx64\x64\dumpbin /dependents c:\tools\php\ext\php_pdo_snowflake.dll
+      #  shell: cmd
          
-      - name: check file
-        run: c:\tools\php\php.exe -dextension=pdo_snowflake -m
-        shell: cmd
+      #- name: check file
+      #  run: c:\tools\php\php.exe -dextension=pdo_snowflake -m
+      #  shell: cmd
       
       
-      - name: search php test
-        run: dir c:\php-sdk /s
-        shell: cmd
+      #- name: search php test
+      #  run: dir c:\php-sdk /s
+      #  shell: cmd
       
       
-      - name: search php test
-        run: dir c:\pdo_snowflake /s
-        shell: cmd
+      #- name: search php test
+      #  run: dir c:\pdo_snowflake /s
+      #  shell: cmd
         
  
-      - name: setup test
-        env: 
-            SNOWFLAKE_TEST_USER: ${{ secrets.SNOWFLAKE_TEST_USER }}
-            SNOWFLAKE_TEST_PASSWORD: ${{ secrets.SNOWFLAKE_TEST_PASSWORD }}
-            SNOWFLAKE_TEST_ACCOUNT: ${{ secrets.SNOWFLAKE_TEST_ACCOUNT }}
-            SNOWFLAKE_TEST_WAREHOUSE: ${{ secrets.SNOWFLAKE_TEST_WAREHOUSE }}
-            SNOWFLAKE_TEST_DATABASE: ${{ secrets.SNOWFLAKE_TEST_DATABASE }}
-            SNOWFLAKE_TEST_SCHEMA: ${{ secrets.SNOWFLAKE_TEST_SCHEMA }}
-            SNOWFLAKE_TEST_ROLE: ${{ secrets.SNOWFLAKE_TEST_ROLE }}
-        run: |
-            xcopy .\config\parameters.json c:\pdo_snowflake\ /I/Y/F
-            xcopy .\scripts\check_result.py c:\pdo_snowflake\ /I/Y/F
-            python .\scripts\set_secrets.py c:\pdo_snowflake\parameters.json  
-        shell: cmd
+      #- name: setup test
+      #  env: 
+      #      SNOWFLAKE_TEST_USER: ${{ secrets.SNOWFLAKE_TEST_USER }}
+      #      SNOWFLAKE_TEST_PASSWORD: ${{ secrets.SNOWFLAKE_TEST_PASSWORD }}
+      #      SNOWFLAKE_TEST_ACCOUNT: ${{ secrets.SNOWFLAKE_TEST_ACCOUNT }}
+      #      SNOWFLAKE_TEST_WAREHOUSE: ${{ secrets.SNOWFLAKE_TEST_WAREHOUSE }}
+      #      SNOWFLAKE_TEST_DATABASE: ${{ secrets.SNOWFLAKE_TEST_DATABASE }}
+      #      SNOWFLAKE_TEST_SCHEMA: ${{ secrets.SNOWFLAKE_TEST_SCHEMA }}
+      #      SNOWFLAKE_TEST_ROLE: ${{ secrets.SNOWFLAKE_TEST_ROLE }}
+      #  run: |
+      #      xcopy .\config\parameters.json c:\pdo_snowflake\ /I/Y/F
+      #      xcopy .\scripts\check_result.py c:\pdo_snowflake\ /I/Y/F
+      #      python .\scripts\set_secrets.py c:\pdo_snowflake\parameters.json  
+      #  shell: cmd
       
       
-      - name: setup test
-        env: 
-            SNOWFLAKE_TEST_USER: ${{ secrets.SNOWFLAKE_TEST_USER }}
-            SNOWFLAKE_TEST_PASSWORD: ${{ secrets.SNOWFLAKE_TEST_PASSWORD }}
-            SNOWFLAKE_TEST_ACCOUNT: ${{ secrets.SNOWFLAKE_TEST_ACCOUNT }}
-            SNOWFLAKE_TEST_WAREHOUSE: ${{ secrets.SNOWFLAKE_TEST_WAREHOUSE }}
-            SNOWFLAKE_TEST_DATABASE: ${{ secrets.SNOWFLAKE_TEST_DATABASE }}
-            SNOWFLAKE_TEST_SCHEMA: ${{ secrets.SNOWFLAKE_TEST_SCHEMA }}
-            SNOWFLAKE_TEST_ROLE: ${{ secrets.SNOWFLAKE_TEST_ROLE }}
-        run: .\scripts\env.bat
-        shell: cmd
-        working-directory:  c:\pdo_snowflake
+      #- name: setup test
+      #  env: 
+      #      SNOWFLAKE_TEST_USER: ${{ secrets.SNOWFLAKE_TEST_USER }}
+      #      SNOWFLAKE_TEST_PASSWORD: ${{ secrets.SNOWFLAKE_TEST_PASSWORD }}
+      #      SNOWFLAKE_TEST_ACCOUNT: ${{ secrets.SNOWFLAKE_TEST_ACCOUNT }}
+      #      SNOWFLAKE_TEST_WAREHOUSE: ${{ secrets.SNOWFLAKE_TEST_WAREHOUSE }}
+      #      SNOWFLAKE_TEST_DATABASE: ${{ secrets.SNOWFLAKE_TEST_DATABASE }}
+      #      SNOWFLAKE_TEST_SCHEMA: ${{ secrets.SNOWFLAKE_TEST_SCHEMA }}
+      #      SNOWFLAKE_TEST_ROLE: ${{ secrets.SNOWFLAKE_TEST_ROLE }}
+      #  run: .\scripts\env.bat
+      #  shell: cmd
+      #  working-directory:  c:\pdo_snowflake
         
         
-      - name: run test
-        env: 
-            SNOWFLAKE_TEST_USER: ${{ secrets.SNOWFLAKE_TEST_USER }}
-            SNOWFLAKE_TEST_PASSWORD: ${{ secrets.SNOWFLAKE_TEST_PASSWORD }}
-            SNOWFLAKE_TEST_ACCOUNT: ${{ secrets.SNOWFLAKE_TEST_ACCOUNT }}
-            SNOWFLAKE_TEST_WAREHOUSE: ${{ secrets.SNOWFLAKE_TEST_WAREHOUSE }}
-            SNOWFLAKE_TEST_DATABASE: ${{ secrets.SNOWFLAKE_TEST_DATABASE }}
-            SNOWFLAKE_TEST_SCHEMA: ${{ secrets.SNOWFLAKE_TEST_SCHEMA }}
-            SNOWFLAKE_TEST_ROLE: ${{ secrets.SNOWFLAKE_TEST_ROLE }}
-            TEST_PHP_EXECUTABLE: c:\tools\php\php.exe
-        run: |
-            echo "==> Run Test"
-            c:\tools\php\php.exe c:\php-sdk\phpmaster\vc15\x64\php-src\run-tests.php c:\pdo_snowflake\tests -d extension=pdo_snowflake || ver>null
-            echo "===========parsing test result============"
-            python check_result.py .\tests
-        shell: cmd
-        working-directory:  c:\pdo_snowflake
+      #- name: run test
+      #  env: 
+      #      SNOWFLAKE_TEST_USER: ${{ secrets.SNOWFLAKE_TEST_USER }}
+      #      SNOWFLAKE_TEST_PASSWORD: ${{ secrets.SNOWFLAKE_TEST_PASSWORD }}
+      #      SNOWFLAKE_TEST_ACCOUNT: ${{ secrets.SNOWFLAKE_TEST_ACCOUNT }}
+      #      SNOWFLAKE_TEST_WAREHOUSE: ${{ secrets.SNOWFLAKE_TEST_WAREHOUSE }}
+      #      SNOWFLAKE_TEST_DATABASE: ${{ secrets.SNOWFLAKE_TEST_DATABASE }}
+      #      SNOWFLAKE_TEST_SCHEMA: ${{ secrets.SNOWFLAKE_TEST_SCHEMA }}
+      #      SNOWFLAKE_TEST_ROLE: ${{ secrets.SNOWFLAKE_TEST_ROLE }}
+      #      TEST_PHP_EXECUTABLE: c:\tools\php\php.exe
+      #  run: |
+      #      echo "==> Run Test"
+      #      c:\tools\php\php.exe c:\php-sdk\phpmaster\vc15\x64\php-src\run-tests.php c:\pdo_snowflake\tests -d extension=pdo_snowflake || ver>null
+      #      echo "===========parsing test result============"
+      #      python check_result.py .\tests
+      #  shell: cmd
+      #  working-directory:  c:\pdo_snowflake
         
