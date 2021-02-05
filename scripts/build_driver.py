@@ -11,7 +11,7 @@ def runCommand(cmd):
     for line in result.stderr:
         print (line.strip().decode('utf-8'))
     result.poll()
-    if result.returncode != 0 and result.returncode is not none:
+    if result.returncode != 0 and result.returncode is not None:
         exit(-1)
 
 
