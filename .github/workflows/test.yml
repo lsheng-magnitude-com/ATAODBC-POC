@@ -12,7 +12,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: windows-2016
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -25,7 +25,12 @@ jobs:
       - name: test
         env: 
           USERNAME: ${{ secrets.USERNAME }}
-        run: |
-          /usr/bin/php7.2 -v
-          /usr/bin/php -v
+        run: set
+        shell: cmd
+      
+      - name: test
+        env: 
+          USERNAME: ${{ secrets.USERNAME }}
+        run: php -v
+        shell: cmd
           

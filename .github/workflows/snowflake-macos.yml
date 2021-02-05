@@ -39,12 +39,16 @@ jobs:
           run: |
             export RUN_COVERAGE=1
             export PHP_HOME=/usr/local
+            export TEST_PHP_EXECUTABLE=/usr/local/bin/php
+            export REPORT_EXIT_STATUS=1
+            export NO_INTERACTION=true
             ./scripts/build_pdo_snowflake.sh
             $PHP_HOME/bin/php -dextension=modules/pdo_snowflake.so -m | grep pdo_snowflake
             cp ../config/parameters.json ./
             python ../scripts/set_secrets.py ./parameters.json
             ./scripts/env.sh && env | grep SNOWFLAKE_TEST > testenv.ini
-            REPORT_EXIT_STATUS=1 NO_INTERACTION=true make test || :
+            /usr/local/bin/php -d 'open_basedir=' -d 'output_buffering=0' -d 'memory_limit=-1' /Users/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/run-tests.php -d extension=modules/pdo_snowflake.so
+            #REPORT_EXIT_STATUS=1 NO_INTERACTION=true make test || :
             echo "===========parseing test result============"
             python ../scripts/check_result.py ./tests
           working-directory: /Users/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake
