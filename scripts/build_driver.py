@@ -12,6 +12,7 @@ def runCommand(cmd):
         print (line.strip().decode('utf-8'))
     result.poll()
     if result.returncode != 0:
+        print (cmd + ' returns error ' + result.returncode)
         exit(-1)
 
 
@@ -37,6 +38,7 @@ def build_windows():
     print ("====> building snowflake driver: " + cwd)
     print ("====> working directory: " + ropo)
     print ("====> prepare repository")
+    os.chdir(cwd)
     runCommand('git clone https://github.com/snowflakedb/pdo_snowflake.git')
     print ("====> change working directory")
     os.chdir(ropo)
