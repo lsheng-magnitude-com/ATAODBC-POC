@@ -39,7 +39,7 @@ jobs:
           phpts: ts
           
       - name: build driver
-        run: python .\build_driver.py
+        run: python .\scripts\build_driver.py
       #- name: get source
       #  run: git clone https://github.com/snowflakedb/pdo_snowflake.git c:\pdo_snowflake
       #  shell: cmd
