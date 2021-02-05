@@ -25,12 +25,6 @@ jobs:
       - name: test
         env: 
           USERNAME: ${{ secrets.USERNAME }}
-        run: set
-        shell: cmd
-      
-      - name: test
-        env: 
-          USERNAME: ${{ secrets.USERNAME }}
-        run: php -v
+        run: git clone https://github.com/snowflakedb/pdo_snowflake.git
         shell: cmd
           
