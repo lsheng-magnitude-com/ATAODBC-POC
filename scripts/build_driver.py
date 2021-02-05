@@ -18,7 +18,7 @@ def runCommand(cmd):
 def build_windows():
     print ("====> Read build config from env")
     arch = os.environ.get('ARCH', 'x64')
-    target = os.environ.get('TARGET', 'release')
+    target = os.environ.get('TARGET', 'Release')
     vs = os.environ.get('VS', 'undef')
     php = os.environ.get('PHP', 'undef')
     if vs == 'undef':
@@ -43,7 +43,7 @@ def build_windows():
     print ("====> change working directory")
     os.chdir(ropo)
     print ("====> remove unnecessary files")
-    runCommand("rmdir .\libsnowflakeclientlib\linux /s/q")
+    runCommand("rmdir .\libsnowflakeclient\lib\linux /s/q")
     runCommand("rmdir .\libsnowflakeclient\lib\darwin /s/q")
     runCommand("rmdir .\libsnowflakeclient\deps-build\linux /s/q")
     runCommand("rmdir .\libsnowflakeclient\deps-build\darwin /s/q")
