@@ -23,7 +23,7 @@ jobs:
       SNOWFLAKE_TEST_SCHEMA: ${{ secrets.SNOWFLAKE_TEST_SCHEMA }}
       SNOWFLAKE_TEST_ROLE: ${{ secrets.SNOWFLAKE_TEST_ROLE }}
       ARCH: x64
-      TARGET: release
+      TARGET: Release
       VS: VS15
       PHP: 7.2.34
     # Steps represent a sequence of tasks that will be executed as part of the job
