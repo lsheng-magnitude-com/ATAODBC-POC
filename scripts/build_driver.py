@@ -3,7 +3,8 @@ import os
 import sys
 import subprocess
 
-def runCommand(cmd):
+
+def run_command(cmd):
     print (cmd)
     result = subprocess.Popen(cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE, shell=True)
     for line in result.stdout:
@@ -18,7 +19,7 @@ def runCommand(cmd):
 def build_windows():
     print ("====> Read build config from env")
     arch = os.environ.get('ARCH', 'x64')
-    target = os.environ.get('TARGET', 'release')
+    target = os.environ.get('TARGET', 'Release')
     vs = os.environ.get('VS', 'undef')
     php = os.environ.get('PHP', 'undef')
     if vs == 'undef':
@@ -39,26 +40,26 @@ def build_windows():
     print ("====> working directory: " + ropo)
     print ("====> prepare repository")
     os.chdir(cwd)
-    runCommand('git clone https://github.com/snowflakedb/pdo_snowflake.git')
+    run_command('git clone https://github.com/snowflakedb/pdo_snowflake.git')
     print ("====> change working directory")
     os.chdir(ropo)
     print ("====> remove unnecessary files")
-    runCommand("rmdir .\libsnowflakeclientlib\linux /s/q")
-    runCommand("rmdir .\libsnowflakeclient\lib\darwin /s/q")
-    runCommand("rmdir .\libsnowflakeclient\deps-build\linux /s/q")
-    runCommand("rmdir .\libsnowflakeclient\deps-build\darwin /s/q")
+    run_command("rmdir .\libsnowflakeclientlib\linux /s/q")
+    run_command("rmdir .\libsnowflakeclient\lib\darwin /s/q")
+    run_command("rmdir .\libsnowflakeclient\deps-build\linux /s/q")
+    run_command("rmdir .\libsnowflakeclient\deps-build\darwin /s/q")
 
     os.chdir(scripts_dir)
     print ("====> setup php sdk and php source")
-    runCommand("setup_php_sdk.bat " + arch + " " + target + " " + vs + " " + php + " c:/php-sdk")
-    runCommand("run_setup_php.bat " + arch + " " + target + " " + vs + " " + php + " c:/php-sdk")
+    run_command("setup_php_sdk.bat " + arch + " " + target + " " + vs + " " + php + " c:/php-sdk")
+    run_command("run_setup_php.bat " + arch + " " + target + " " + vs + " " + php + " c:/php-sdk")
 
     print ("====> build pdo driver")
-    runCommand("run_build_pdo_snowflake.bat " + arch + " " + target + " " + vs + " " + php + " c:/php-sdk")
-    dll = os.path.join("c:/php-sdk/phpmaster", vs.replace("VS","vc"), arch, "php-src", arch, target + "_TS", php_pdo_snowflake.dll)
+    run_command("run_build_pdo_snowflake.bat " + arch + " " + target + " " + vs + " " + php + " c:/php-sdk")
+    dll = os.path.join("c:/php-sdk/phpmaster", vs.replace("VS", "vc"), arch, "php-src", arch, target + "_TS", "php_pdo_snowflake.dll")
     php_ext_dir = os.path.join("c:","tools","php","ext")
-    runCommand("xcopy " + dll + php_ext_dir +" /I/Y/F")
-    runCommand("php -dextension=pdo_snowflake -m")
+    run_command("xcopy " + dll + php_ext_dir +" /I/Y/F")
+    run_command("php -dextension=pdo_snowflake -m")
 
 
 def main():
