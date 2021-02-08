@@ -13,7 +13,18 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: macos-latest
-    
+    env: 
+      SNOWFLAKE_TEST_USER: ${{ secrets.SNOWFLAKE_TEST_USER }}
+      SNOWFLAKE_TEST_PASSWORD: ${{ secrets.SNOWFLAKE_TEST_PASSWORD }}
+      SNOWFLAKE_TEST_ACCOUNT: ${{ secrets.SNOWFLAKE_TEST_ACCOUNT }}
+      SNOWFLAKE_TEST_WAREHOUSE: ${{ secrets.SNOWFLAKE_TEST_WAREHOUSE }}
+      SNOWFLAKE_TEST_DATABASE: ${{ secrets.SNOWFLAKE_TEST_DATABASE }}
+      SNOWFLAKE_TEST_SCHEMA: ${{ secrets.SNOWFLAKE_TEST_SCHEMA }}
+      SNOWFLAKE_TEST_ROLE: ${{ secrets.SNOWFLAKE_TEST_ROLE }}
+      export RUN_COVERAGE: 1
+      export PHP_HOME: /usr/local
+      export TEST_PHP_EXECUTABLE: /usr/local/bin/php
+      export NO_INTERACTION: true
     steps:
         # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
         - uses: actions/checkout@v2
@@ -23,32 +34,19 @@ jobs:
             php-version: 7.2
             extensions: pdo, json
           
-        - name: get source
-          run: git clone https://github.com/snowflakedb/pdo_snowflake.git
+        #- name: get source
+        #  run: git clone https://github.com/snowflakedb/pdo_snowflake.git
         
         
         - name: Build PDO Driver
-          env: 
-            SNOWFLAKE_TEST_USER: ${{ secrets.SNOWFLAKE_TEST_USER }}
-            SNOWFLAKE_TEST_PASSWORD: ${{ secrets.SNOWFLAKE_TEST_PASSWORD }}
-            SNOWFLAKE_TEST_ACCOUNT: ${{ secrets.SNOWFLAKE_TEST_ACCOUNT }}
-            SNOWFLAKE_TEST_WAREHOUSE: ${{ secrets.SNOWFLAKE_TEST_WAREHOUSE }}
-            SNOWFLAKE_TEST_DATABASE: ${{ secrets.SNOWFLAKE_TEST_DATABASE }}
-            SNOWFLAKE_TEST_SCHEMA: ${{ secrets.SNOWFLAKE_TEST_SCHEMA }}
-            SNOWFLAKE_TEST_ROLE: ${{ secrets.SNOWFLAKE_TEST_ROLE }}
-          run: |
-            export RUN_COVERAGE=1
-            export PHP_HOME=/usr/local
-            export TEST_PHP_EXECUTABLE=/usr/local/bin/php
-            export REPORT_EXIT_STATUS=1
-            export NO_INTERACTION=true
-            ./scripts/build_pdo_snowflake.sh
-            $PHP_HOME/bin/php -dextension=modules/pdo_snowflake.so -m | grep pdo_snowflake
-            cp ../config/parameters.json ./
-            python ../scripts/set_secrets.py ./parameters.json
-            ./scripts/env.sh && env | grep SNOWFLAKE_TEST > testenv.ini
-            /usr/local/bin/php -d 'open_basedir=' -d 'output_buffering=0' -d 'memory_limit=-1' /Users/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/run-tests.php -d extension=modules/pdo_snowflake.so
+          run: python ./scripts/build_driver.py
+            #./scripts/build_pdo_snowflake.sh
+            #$PHP_HOME/bin/php -dextension=modules/pdo_snowflake.so -m | grep pdo_snowflake
+            #cp ../config/parameters.json ./
+            #python ../scripts/set_secrets.py ./parameters.json
+            #./scripts/env.sh && env | grep SNOWFLAKE_TEST > testenv.ini
+            #/usr/local/bin/php -d 'open_basedir=' -d 'output_buffering=0' -d 'memory_limit=-1' /Users/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake/run-tests.php -d extension=modules/pdo_snowflake.so
             #REPORT_EXIT_STATUS=1 NO_INTERACTION=true make test || :
-            echo "===========parseing test result============"
-            python ../scripts/check_result.py ./tests
-          working-directory: /Users/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake
+            #echo "===========parseing test result============"
+            #python ../scripts/check_result.py ./tests
+          #working-directory: /Users/runner/work/ATA-POC-ODBC/ATA-POC-ODBC/pdo_snowflake
