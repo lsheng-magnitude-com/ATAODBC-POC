@@ -76,7 +76,7 @@ jobs:
       #  working-directory: c:\pdo_snowflake
         
       - name: setup php sdk
-        run: .\scripts\setup_php_sdk.bat x64 Release VS15 c:\php-sdk
+        run: .\scripts\setup_php_sdk.bat x64 Release VS15 D:\php-sdk
         shell: cmd
         working-directory: D:\a\ATA-POC-ODBC\ATA-POC-ODBC\pdo_snowflake
         
