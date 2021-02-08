@@ -65,9 +65,9 @@ jobs:
       #  shell: cmd
       #  working-directory: c:\pdo_snowflake
     
-      #- name: remove unnecessary test case for Windows
-      #  run: del c:\pdo_snowflake\tests\selectltz.phpt /q/f 
-      #  shell: cmd
+      - name: remove unnecessary test case for Windows
+        run: del .\pdo_snowflake\tests\selectltz.phpt /q/f 
+        shell: cmd
       #  working-directory: c:\pdo_snowflake
         
       #- name: check
@@ -142,7 +142,7 @@ jobs:
       #  shell: cmd
         
  
-      #- name: setup test
+      - name: setup test
       #  env: 
       #      SNOWFLAKE_TEST_USER: ${{ secrets.SNOWFLAKE_TEST_USER }}
       #      SNOWFLAKE_TEST_PASSWORD: ${{ secrets.SNOWFLAKE_TEST_PASSWORD }}
@@ -151,14 +151,14 @@ jobs:
       #      SNOWFLAKE_TEST_DATABASE: ${{ secrets.SNOWFLAKE_TEST_DATABASE }}
       #      SNOWFLAKE_TEST_SCHEMA: ${{ secrets.SNOWFLAKE_TEST_SCHEMA }}
       #      SNOWFLAKE_TEST_ROLE: ${{ secrets.SNOWFLAKE_TEST_ROLE }}
-      #  run: |
-      #      xcopy .\config\parameters.json c:\pdo_snowflake\ /I/Y/F
-      #      xcopy .\scripts\check_result.py c:\pdo_snowflake\ /I/Y/F
-      #      python .\scripts\set_secrets.py c:\pdo_snowflake\parameters.json  
-      #  shell: cmd
+        run: |
+            xcopy .\config\parameters.json .\pdo_snowflake\ /I/Y/F
+            xcopy .\scripts\check_result.py .\pdo_snowflake\ /I/Y/F
+            python .\scripts\set_secrets.py .\pdo_snowflake\parameters.json  
+        shell: cmd
       
       
-      #- name: setup test
+      - name: setup test
       #  env: 
       #      SNOWFLAKE_TEST_USER: ${{ secrets.SNOWFLAKE_TEST_USER }}
       #      SNOWFLAKE_TEST_PASSWORD: ${{ secrets.SNOWFLAKE_TEST_PASSWORD }}
@@ -167,13 +167,13 @@ jobs:
       #      SNOWFLAKE_TEST_DATABASE: ${{ secrets.SNOWFLAKE_TEST_DATABASE }}
       #      SNOWFLAKE_TEST_SCHEMA: ${{ secrets.SNOWFLAKE_TEST_SCHEMA }}
       #      SNOWFLAKE_TEST_ROLE: ${{ secrets.SNOWFLAKE_TEST_ROLE }}
-      #  run: .\scripts\env.bat
-      #  shell: cmd
-      #  working-directory:  c:\pdo_snowflake
+        run: .\scripts\env.bat
+        shell: cmd
+        working-directory:  .\pdo_snowflake
         
         
-      #- name: run test
-      #  env: 
+      - name: run test
+        env: 
       #      SNOWFLAKE_TEST_USER: ${{ secrets.SNOWFLAKE_TEST_USER }}
       #      SNOWFLAKE_TEST_PASSWORD: ${{ secrets.SNOWFLAKE_TEST_PASSWORD }}
       #      SNOWFLAKE_TEST_ACCOUNT: ${{ secrets.SNOWFLAKE_TEST_ACCOUNT }}
@@ -181,12 +181,12 @@ jobs:
       #      SNOWFLAKE_TEST_DATABASE: ${{ secrets.SNOWFLAKE_TEST_DATABASE }}
       #      SNOWFLAKE_TEST_SCHEMA: ${{ secrets.SNOWFLAKE_TEST_SCHEMA }}
       #      SNOWFLAKE_TEST_ROLE: ${{ secrets.SNOWFLAKE_TEST_ROLE }}
-      #      TEST_PHP_EXECUTABLE: c:\tools\php\php.exe
-      #  run: |
-      #      echo "==> Run Test"
-      #      c:\tools\php\php.exe c:\php-sdk\phpmaster\vc15\x64\php-src\run-tests.php c:\pdo_snowflake\tests -d extension=pdo_snowflake || ver>null
-      #      echo "===========parsing test result============"
-      #      python check_result.py .\tests
-      #  shell: cmd
-      #  working-directory:  c:\pdo_snowflake
+            TEST_PHP_EXECUTABLE: c:\tools\php\php.exe
+        run: |
+            echo "==> Run Test"
+            c:\tools\php\php.exe D:\php-sdk\phpmaster\vc15\x64\php-src\run-tests.php .\tests -d extension=pdo_snowflake || ver>null
+            echo "===========parsing test result============"
+            python check_result.py .\tests
+        shell: cmd
+        working-directory:  .\pdo_snowflake
         
