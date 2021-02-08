@@ -21,10 +21,10 @@ jobs:
       SNOWFLAKE_TEST_DATABASE: ${{ secrets.SNOWFLAKE_TEST_DATABASE }}
       SNOWFLAKE_TEST_SCHEMA: ${{ secrets.SNOWFLAKE_TEST_SCHEMA }}
       SNOWFLAKE_TEST_ROLE: ${{ secrets.SNOWFLAKE_TEST_ROLE }}
-      export RUN_COVERAGE: 1
-      export PHP_HOME: /usr/local
-      export TEST_PHP_EXECUTABLE: /usr/local/bin/php
-      export NO_INTERACTION: true
+      RUN_COVERAGE: 1
+      PHP_HOME: /usr/local
+      TEST_PHP_EXECUTABLE: /usr/local/bin/php
+      NO_INTERACTION: true
     steps:
         # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
         - uses: actions/checkout@v2
