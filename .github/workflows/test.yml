@@ -16,15 +16,17 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: setup php
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 7.2
-          extensions: pdo, json
+    #  - name: setup php
+    #    uses: shivammathur/setup-php@v2
+    #    with:
+    #      php-version: 7.2
+    #      extensions: pdo, json
         
       - name: test
-        env: 
-          USERNAME: ${{ secrets.USERNAME }}
-        run: git clone https://github.com/snowflakedb/pdo_snowflake.git
+        run: git clone https://github.com/Microsoft/php-sdk-binary-tools.git c:\php-sdk
         shell: cmd
-          
+        
+      - name: test
+        run: git checkout php-sdk-2.1.10
+        shell: cmd
+        working-directory: c:\php-sdk
