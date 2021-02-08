@@ -74,6 +74,7 @@ def build_posix():
     os.chdir(ropo)
     print ("====> build pdo driver")
     run_command("./scripts/build_pdo_snowflake.sh")
+    run_command("php -dextension=modules/pdo_snowflake.so -m | grep pdo_snowflake")
 
 
 def main():
