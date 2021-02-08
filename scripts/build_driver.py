@@ -50,11 +50,11 @@ def build_windows():
     run_command("rmdir .\libsnowflakeclient\deps-build\darwin /s/q")
 
     print ("====> setup php sdk and php source")
-    run_command("scripts\\setup_php_sdk.bat " + arch + " " + target + " " + vs + " " + php + " c:\php-sdk")
-    run_command("scripts\\run_setup_php.bat " + arch + " " + target + " " + vs + " " + php + " c:\php-sdk")
+    run_command("scripts\\setup_php_sdk.bat " + arch + " " + target + " " + php + " c:\\php-sdk")
+    run_command("scripts\\run_setup_php.bat " + arch + " " + target + " " + vs + " " + php + " c:\\php-sdk")
 
     print ("====> build pdo driver")
-    run_command("scripts\\run_build_pdo_snowflake.bat " + arch + " " + target + " " + vs + " " + php + " c:\php-sdk")
+    run_command("scripts\\run_build_pdo_snowflake.bat " + arch + " " + target + " " + vs + " " + php + " c:\\php-sdk")
     dll = os.path.join("c:/php-sdk/phpmaster", vs.replace("VS", "vc"), arch, "php-src", arch, target + "_TS", "php_pdo_snowflake.dll")
     php_ext_dir = os.path.join("c:", "tools", "php", "ext")
     run_command("xcopy " + dll + php_ext_dir +" /I/Y/F")
