@@ -5,7 +5,7 @@ import subprocess
 
 
 def run_command(cmd):
-    print (cmd)
+    print(cmd)
     result = subprocess.Popen(cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE, shell=True)
     for line in result.stdout:
         print (line.strip().decode('utf-8'))
@@ -35,7 +35,7 @@ def build_windows():
 
     cwd = os.environ.get('GITHUB_WORKSPACE')
     ropo = os.path.join(cwd, 'pdo_snowflake')
-    scripts_dir = os.path.join(ropo, 'scripts')
+    #scripts_dir = os.path.join(ropo, 'scripts')
     print ("====> building snowflake driver: " + cwd)
     print ("====> working directory: " + ropo)
     print ("====> prepare repository")
@@ -49,15 +49,14 @@ def build_windows():
     run_command("rmdir .\libsnowflakeclient\deps-build\linux /s/q")
     run_command("rmdir .\libsnowflakeclient\deps-build\darwin /s/q")
 
-    os.chdir(scripts_dir)
     print ("====> setup php sdk and php source")
-    run_command("setup_php_sdk.bat " + arch + " " + target + " " + vs + " " + php + " c:/php-sdk")
-    run_command("run_setup_php.bat " + arch + " " + target + " " + vs + " " + php + " c:/php-sdk")
+    run_command("scripts\\setup_php_sdk.bat " + arch + " " + target + " " + vs + " " + php + " c:\\php-sdk")
+    run_command("scripts\\run_setup_php.bat " + arch + " " + target + " " + vs + " " + php + " c:\\php-sdk")
 
     print ("====> build pdo driver")
-    run_command("run_build_pdo_snowflake.bat " + arch + " " + target + " " + vs + " " + php + " c:/php-sdk")
+    run_command("scripts\\run_build_pdo_snowflake.bat " + arch + " " + target + " " + vs + " " + php + " c:/php-sdk")
     dll = os.path.join("c:/php-sdk/phpmaster", vs.replace("VS", "vc"), arch, "php-src", arch, target + "_TS", "php_pdo_snowflake.dll")
-    php_ext_dir = os.path.join("c:","tools","php","ext")
+    php_ext_dir = os.path.join("c:", "tools", "php", "ext")
     run_command("xcopy " + dll + php_ext_dir +" /I/Y/F")
     run_command("php -dextension=pdo_snowflake -m")
 
