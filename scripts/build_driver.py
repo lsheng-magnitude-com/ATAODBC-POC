@@ -61,6 +61,21 @@ def build_windows():
     run_command("php -dextension=pdo_snowflake -m")
 
 
+def build_posix():
+    cwd = os.environ.get('GITHUB_WORKSPACE')
+    ropo = os.path.join(cwd, 'pdo_snowflake')
+    #scripts_dir = os.path.join(ropo, 'scripts')
+    print("====> building snowflake driver: " + cwd)
+    print("====> working directory: " + ropo)
+    print("====> prepare repository")
+    os.chdir(cwd)
+    run_command('git clone https://github.com/snowflakedb/pdo_snowflake.git')
+    print("====> change working directory")
+    os.chdir(ropo)
+    print ("====> build pdo driver")
+    run_command("./scripts/build_pdo_snowflake.sh")
+
+
 def main():
     current_os = os.name
     if current_os == 'nt':
