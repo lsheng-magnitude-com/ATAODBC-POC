@@ -55,10 +55,10 @@ def build_windows():
 
     print ("====> build pdo driver")
     run_command("scripts\\run_build_pdo_snowflake.bat " + arch + " " + target + " " + vs + " " + php + " D:\\php-sdk")
-    #dll = os.path.join("c:/php-sdk/phpmaster", vs.replace("VS", "vc"), arch, "php-src", arch, target + "_TS", "php_pdo_snowflake.dll")
-    #php_ext_dir = os.path.join("c:", "tools", "php", "ext")
-    #run_command("xcopy " + dll + php_ext_dir +" /I/Y/F")
-    #run_command("php -dextension=pdo_snowflake -m")
+    dll = os.path.join("D:\\php-sdk\\phpmaster", vs.replace("VS", "vc"), arch, "php-src", arch, target + "_TS", "php_pdo_snowflake.dll")
+    php_ext_dir = os.path.join("c:", "tools", "php", "ext")
+    run_command("xcopy " + dll + " " + php_ext_dir +" /I/Y/F")
+    run_command("php -dextension=pdo_snowflake -m")
 
 
 def main():
