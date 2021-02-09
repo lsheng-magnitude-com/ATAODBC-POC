@@ -25,7 +25,7 @@ jobs:
       PHP_HOME: /usr
       TEST_PHP_EXECUTABLE: /usr/bin/php
       NO_INTERACTION: true
-      USE_VALGRIND: 1
+      USE_VALGRIND: false
     steps:
         # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
         - uses: actions/checkout@v2
