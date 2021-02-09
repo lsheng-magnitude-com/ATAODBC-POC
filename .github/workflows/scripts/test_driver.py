@@ -49,6 +49,8 @@ def test_windows():
 
 
 def test_posix():
+    print("====> Read Test config from env")
+    use_valgrind = os.environ.get('USE_VALGRIND', 'false')
     cwd = os.environ.get('GITHUB_WORKSPACE')
     ropo = os.path.join(cwd, 'pdo_snowflake')
     #scripts_dir = os.path.join(ropo, 'scripts')
@@ -62,7 +64,10 @@ def test_posix():
     run_command("./scripts/env.sh && env | grep SNOWFLAKE_TEST > testenv.ini")
 
     print ("====> run test")
-    run_command("php -d 'open_basedir=' -d 'output_buffering=0' -d 'memory_limit=-1' ./run-tests.php -d extension=modules/pdo_snowflake.so")
+    run_test_options = ""
+    if use_valgrind == 'true':
+        run_test_options = run_test_options + ' -m'
+    run_command("php -d 'open_basedir=' -d 'output_buffering=0' -d 'memory_limit=-1' ./run-tests.php -d extension=modules/pdo_snowflake.so" + run_test_options)
     print ("====> parse test results")
     run_command("python ../.github/workflows/scripts/check_result.py ./tests")
 
