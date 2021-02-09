@@ -35,8 +35,8 @@ def test_windows():
     run_command("del .\\tests\\selectltz.phpt /q/f ")
 
     print("====> setup parameters and env")
-    run_command("xcopy ..\\config\\parameters.json .\ /I/Y/F")
-    run_command("python ..\\scripts\set_secrets.py .\parameters.json")
+    run_command("xcopy ..\\.github\\workflows\\scripts\\parameters.json .\ /I/Y/F")
+    run_command("python ..\\.github\\workflows\\scripts\set_secrets.py .\parameters.json")
     run_command(".\\scripts\\env.bat")
 
 
@@ -44,7 +44,7 @@ def test_windows():
     run_tests_file = os.path.join("D:\\php-sdk\\phpmaster", vs.replace("VS", "vc"), arch, "php-src", "run-tests.php")
     run_command("php.exe " + run_tests_file + " .\\tests -d extension=pdo_snowflake || ver>null")
     print ("====> parse test results")
-    run_command("python ..\\scripts\\check_result.py .\\tests")
+    run_command("python ..\\.github\\workflows\\scripts\\check_result.py .\\tests")
 
 
 
@@ -57,14 +57,14 @@ def test_posix():
     os.chdir(ropo)
 
     print("====> setup parameters and env")
-    run_command("cp ../config/parameters.json ./")
-    run_command("python ../scripts/set_secrets.py ./parameters.json")
+    run_command("cp ../.github/workflows/scripts/parameters.json ./")
+    run_command("python ../.github/workflows/scripts/set_secrets.py ./parameters.json")
     run_command("./scripts/env.sh && env | grep SNOWFLAKE_TEST > testenv.ini")
 
     print ("====> run test")
     run_command("php -d 'open_basedir=' -d 'output_buffering=0' -d 'memory_limit=-1' ./run-tests.php -d extension=modules/pdo_snowflake.so")
     print ("====> parse test results")
-    run_command("python ../scripts/check_result.py ./tests")
+    run_command("python ../.github/workflows/scripts/check_result.py ./tests")
 
 
 def main():
