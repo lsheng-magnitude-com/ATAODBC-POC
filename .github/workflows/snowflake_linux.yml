@@ -57,6 +57,13 @@ jobs:
           
         - name: build driver
           run: python ./scripts/build_driver.py
+        
+        
+        - name: test driver
+          run: python ./scripts/test_driver.py
+        
+        
+        
             #./scripts/build_pdo_snowflake.sh
             #$PHP_HOME/bin/php -dextension=modules/pdo_snowflake.so -m | grep pdo_snowflake
             #cp ../config/parameters.json ./

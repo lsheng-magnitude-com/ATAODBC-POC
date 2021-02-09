@@ -26,6 +26,7 @@ jobs:
       TARGET: Release
       VS: VS15
       PHP: 7.2.34
+      TEST_PHP_EXECUTABLE: c:\tools\php\php.exe
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v2
@@ -41,6 +42,13 @@ jobs:
       - name: build driver
         run: python .\scripts\build_driver.py
         shell: cmd
+      
+      
+      - name: build driver
+        run: python .\scripts\test_driver.py
+        shell: cmd
+        
+        
       #- name: get source
       #  run: git clone https://github.com/snowflakedb/pdo_snowflake.git c:\pdo_snowflake
       #  shell: cmd
