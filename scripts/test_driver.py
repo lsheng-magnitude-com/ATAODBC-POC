@@ -1,38 +1,79 @@
+# This script is to build the snowflake driver in github action
 import os
-import re
 import sys
-import fileinput
+import subprocess
 
 
-def read_test_dir(outputdir):
-    allfiles= []
-    resultfiles = []
-    try:
-        for (dirpath, dirnames, filenames) in os.walk(outputdir):
-            allfiles.extend(filenames)
-        for file in allfiles:
-            filename, file_extension = os.path.splitext(file)
-            if file_extension == '.out' or file_extension == '.log':
-                resultfiles.append(file)
-        return resultfiles
-    except:
-        return resultfiles
-
-
-def main(argv):
-    outputdir = argv[0]
-    resultfiles = read_test_dir(outputdir)
-    if not resultfiles:
-        print ("=================== all tests pass ===================")
-        exit(0)
-    else:
-        for file in resultfiles:
-            print ("===================" + file + "===================")
-            filepath = os.path.join(outputdir, file)
-            f= open(filepath, "r")
-            print (f.read())
+def run_command(cmd):
+    print(cmd)
+    result = subprocess.Popen(cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE, shell=True)
+    for line in result.stdout:
+        print(line.strip().decode('utf-8'))
+    for line in result.stderr:
+        print(line.strip().decode('utf-8'))
+    result.poll()
+    if result.returncode != 0 and result.returncode is not None:
         exit(-1)
 
 
+def test_windows():
+    print("====> Read build config from env")
+    arch = os.environ.get('ARCH', 'x64')
+    vs = os.environ.get('VS', 'undef')
+    if vs == 'undef':
+        print("==Please set VS in env variable==")
+        exit(-1)
+    print("arch = " + arch)
+    print("vs = " + vs)
+    cwd = os.environ.get('GITHUB_WORKSPACE')
+    ropo = os.path.join(cwd, 'pdo_snowflake')
+    #scripts_dir = os.path.join(ropo, 'scripts')
+    print("====> testing snowflake driver: " + cwd)
+    print("====> working directory: " + ropo)
+    os.chdir(ropo)
+    print("====> remove unnecessary test for Winddows")
+    run_command("del c:\\pdo_snowflake\\tests\\selectltz.phpt /q/f ")
+
+    print("====> setup parameters and env")
+    run_command("xcopy ..\\config\\parameters.json .\ /I/Y/F")
+    run_command("python ..\\scripts\set_secrets.py .\parameters.json")
+    run_command(".\\scripts\\env.bat")
+
+
+    print ("====> run test")
+    run_tests_file = os.path.join("D:\\php-sdk\\phpmaster", vs.replace("VS", "vc"), arch, "php-src", "run-tests.php")
+    run_command("php.exe " + run_tests_file + " .\\tests -d extension=pdo_snowflake || ver>null")
+    print ("====> parse test results")
+    run_command("python ..\\scripts\\check_result.py .\\tests")
+
+
+
+def test_posix():
+    cwd = os.environ.get('GITHUB_WORKSPACE')
+    ropo = os.path.join(cwd, 'pdo_snowflake')
+    #scripts_dir = os.path.join(ropo, 'scripts')
+    print("====> testing snowflake driver: " + cwd)
+    print("====> working directory: " + ropo)
+    os.chdir(ropo)
+
+    print("====> setup parameters and env")
+    run_command("cp ../config/parameters.json ./")
+    run_command("python ../scripts/set_secrets.py ./parameters.json")
+    run_command("./scripts/env.sh && env | grep SNOWFLAKE_TEST > testenv.ini")
+
+    print ("====> run test")
+    run_command("php -d 'open_basedir=' -d 'output_buffering=0' -d 'memory_limit=-1' ./run-tests.php -d extension=modules/pdo_snowflake.so")
+    print ("====> parse test results")
+    run_command("python ../scripts/check_result.py ./tests")
+
+
+def main():
+    current_os = os.name
+    if current_os == 'nt':
+        test_windows()
+    else:
+        test_posix()
+
+
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    main()
