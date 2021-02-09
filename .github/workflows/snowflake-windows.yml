@@ -26,6 +26,7 @@ jobs:
       TARGET: Release
       VS: VS15
       PHP: 7.2.34
+      TEST_PHP_EXECUTABLE: c:\tools\php\php.exe
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v2
