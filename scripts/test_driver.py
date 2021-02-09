@@ -32,7 +32,7 @@ def test_windows():
     print("====> working directory: " + ropo)
     os.chdir(ropo)
     print("====> remove unnecessary test for Winddows")
-    run_command("del c:\\pdo_snowflake\\tests\\selectltz.phpt /q/f ")
+    run_command("del .\\tests\\selectltz.phpt /q/f ")
 
     print("====> setup parameters and env")
     run_command("xcopy ..\\config\\parameters.json .\ /I/Y/F")
