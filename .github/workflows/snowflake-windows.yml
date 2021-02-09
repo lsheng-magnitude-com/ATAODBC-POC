@@ -44,7 +44,7 @@ jobs:
         shell: cmd
       
       
-      - name: build driver
+      - name: test driver
         run: python .\.github\workflows\scripts\test_driver.py
         shell: cmd
         

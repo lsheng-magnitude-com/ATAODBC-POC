@@ -56,11 +56,11 @@ jobs:
             
           
         - name: build driver
-          run: python ./scripts/build_driver.py
+          run: python ./.github/workflows/scripts/build_driver.py
         
         
         - name: test driver
-          run: python ./scripts/test_driver.py
+          run: python ./.github/workflows/scripts/test_driver.py
         
         
         
