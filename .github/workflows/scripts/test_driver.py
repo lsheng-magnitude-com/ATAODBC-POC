@@ -65,7 +65,7 @@ def test_posix():
 
     print ("====> run test")
     run_test_options = ""
-    if use_valgrind == 'true':
+    if use_valgrind == 'true' or use_valgrind == '1':
         run_test_options = run_test_options + ' -m'
     run_command("php -d 'open_basedir=' -d 'output_buffering=0' -d 'memory_limit=-1' ./run-tests.php -d extension=modules/pdo_snowflake.so" + run_test_options)
     print ("====> parse test results")
