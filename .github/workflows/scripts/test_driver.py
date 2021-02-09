@@ -35,8 +35,8 @@ def test_windows():
     run_command("del .\\tests\\selectltz.phpt /q/f ")
 
     print("====> setup parameters and env")
-    run_command("xcopy ..\\.github\\workflows\\scripts\\parameters.json .\ /I/Y/F")
-    run_command("python ..\\.github\\workflows\\scripts\set_secrets.py .\parameters.json")
+    run_command("xcopy ..\\.github\\workflows\\scripts\\parameters.json .\\ /I/Y/F")
+    run_command("python ..\\.github\\workflows\\scripts\set_secrets.py .\\parameters.json")
     run_command(".\\scripts\\env.bat")
 
 
