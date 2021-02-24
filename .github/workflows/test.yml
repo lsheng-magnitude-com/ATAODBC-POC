@@ -15,14 +15,34 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: windows-2016
+    runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: test
-        run: echo triggered by creating a tag
-        shell: cmd
+    - uses: actions/checkout@v2
+    - name: Set up JDK 1.7
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.7
+        
+    - name: Check cwd
+      run: pwd
       
-      - name: test
-        run: set
-        shell: cmd
+    - name: Check files
+      run: ls
+      
+    - name: checnk maven
+      run: mvn --version
+      
+    - name: Build with Maven
+      run: mvn -B package --file ./test-app/pom.xml
+      
+    - name: Run test app
+      run: java -cp test-app/target/test-app-1.0-SNAPSHOT.jar com.ata.app.App
+  
+    - name: upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: build artifacts
+        path: test-app/target/test-app-1.0-SNAPSHOT.jar
+    
+    
