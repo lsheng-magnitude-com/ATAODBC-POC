@@ -22,4 +22,8 @@ jobs:
       - name: test
         run: echo triggered by creating a tag
         shell: cmd
+      
+      - name: test
+        run: set
+        shell: cmd
           
