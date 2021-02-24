@@ -6,10 +6,8 @@ name: test
 on:
   # Allows you to run this workflow manually from the Actions tab
   push:
-    branches: [ master, snowflake-build]
-  pull_request:
-    branches: [ master, snowflake-build]
-
+    tags:
+      - '*'
   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -22,6 +20,6 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: test
-        run: echo triggered by push
+        run: echo triggered by creating a tag
         shell: cmd
           
