@@ -54,6 +54,6 @@ jobs:
       if: startsWith(github.ref, 'refs/tags/')
       with:
         files:
-            test-app/target/test-app/target/test-app-1.0-SNAPSHOT-windows.jar
+            test-app/target/test-app-1.0-SNAPSHOT-windows.jar
       env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
