@@ -45,11 +45,14 @@ jobs:
         name: build artifacts
         path: test-app/target/test-app-1.0-SNAPSHOT.jar
         
+    - name: renmae
+      run: rename test-app/target/test-app-1.0-SNAPSHOT.jar test-app-1.0-SNAPSHOT-windows.jar
+        
     - name: Release
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
       with:
         files:
-            test-app/target/test-app-1.0-SNAPSHOT.jar
+            test-app/target/test-app/target/test-app-1.0-SNAPSHOT-windows.jar
       env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
