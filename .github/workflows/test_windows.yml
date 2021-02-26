@@ -47,6 +47,7 @@ jobs:
         
     - name: renmae
       run: rename test-app/target/test-app-1.0-SNAPSHOT.jar test-app-1.0-SNAPSHOT-windows.jar
+      shell: cmd
         
     - name: Release
       uses: softprops/action-gh-release@v1
