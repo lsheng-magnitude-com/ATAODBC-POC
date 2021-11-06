@@ -45,7 +45,7 @@ jobs:
           echo build on windows
           systeminfo
           
-  test-on-linux:
+  test-on-linux-1:
     # The type of runner that the job will run on
     needs: build-on-linux
     runs-on: ubuntu-latest
@@ -58,7 +58,33 @@ jobs:
           echo test on linux
           uname -a
           
-  test-on-macos:
+  test-on-linux-2:
+    # The type of runner that the job will run on
+    needs: build-on-linux
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
+        run: |
+          echo test on linux
+          uname -a
+          
+  test-on-macos-1:
+    # The type of runner that the job will run on
+    needs: build-on-macos
+    runs-on: macos-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
+        run: |
+          echo test on macos
+          uname -a
+    
+  test-on-macos-2:
     # The type of runner that the job will run on
     needs: build-on-macos
     runs-on: macos-latest
@@ -71,7 +97,20 @@ jobs:
           echo test on macos
           uname -a
           
-  test-on-windows:
+  test-on-windows-1:
+    # The type of runner that the job will run on
+    needs: build-on-windows
+    runs-on: windows-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
+        run: |
+          echo test on windows
+          systeminfo
+
+  test-on-windows-2:
     # The type of runner that the job will run on
     needs: build-on-windows
     runs-on: windows-latest
