@@ -148,7 +148,7 @@ jobs:
         run: |
           echo build dmg
           uname -a
-		  
+
   package-msi:
     # The type of runner that the job will run on
     needs: [test-on-windows-1,test-on-windows-2]
