@@ -12,14 +12,15 @@ jobs:
   build-on-linux:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    container: centos:centos6
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
-          echo build on linux
-          uname -a
+          echo build in centos6 container
+          cat /etc/*elease
           
   build-on-macos:
     # The type of runner that the job will run on
