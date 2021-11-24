@@ -1,0 +1,32 @@
+# This is a basic workflow to help you get started with Actions
+
+name: parent_poc
+
+# Controls when the workflow will run
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+    inputs:
+      SEN_LABEL:
+        description: 'SimbaEngineSDK label'     
+        required: true
+        default: '__head__'
+      DRV_LABEL:
+        description: 'driver label'     
+        required: true
+        default: '__head__'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Run a multi-line script
+        run: |
+          echo "I am parent plan"
+          echo "SEN_LABEL: ${{ github.event.inputs.SEN_LABEL }}"
+          echo "DRV_LABEL: ${{ github.event.inputs.DRV_LABEL }}"
